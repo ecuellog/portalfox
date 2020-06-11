@@ -1,0 +1,22 @@
+{
+  "name": "portalfox",
+  "version": "1.0.0",
+  "description": "Intraweb solution",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist/*",
+      "web/*"
+    ]
+  },
+  "author": "Edgardo Cuello",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
