@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path');
-const app = express()
+const app = express();
 const port = 4001;
 
 // Set Static Folder
@@ -12,6 +12,7 @@ function addUrlParamSpace(req, res, next) {
   } else {
     res.cookie('space_name', '');
   }
+  
   res.sendFile(path.join(__dirname,'../dist/index.html'));
 }
 
