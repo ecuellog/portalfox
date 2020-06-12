@@ -7,8 +7,12 @@ const port = 4001;
 app.use(express.static(path.join(__dirname, '../dist'), {index: false}));
 
 function addUrlParamSpace(req, res, next) {
-  res.cookie('space_name', req.params.spacename);
-  next();
+  if (req.params.spacename){
+    res.cookie('space_name', req.params.spacename);
+  } else {
+    res.cookie('space_name', '');
+  }
+  res.sendFile(path.join(__dirname,'../dist/index.html'));
 }
 
 app.get('/space/:spacename/**', addUrlParamSpace);
@@ -17,6 +21,8 @@ app.get('/space/:spacename', addUrlParamSpace);
 app.get('*', function (req, res) {
   if(req.subdomains.length == 1) {
     res.cookie('space_name', req.subdomains[0]);
+  } else {
+    res.cookie('space_name', '');
   }
   res.sendFile(path.join(__dirname,'../dist/index.html'));
 });
