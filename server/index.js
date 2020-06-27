@@ -1,7 +1,16 @@
 const express = require('express')
 const path = require('path');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const config = require('../webpack.config.js');
 const app = express();
 const port = 4001;
+
+const compiler = webpack(config);
+
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+}));
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, '../dist'), {index: false}));
@@ -12,9 +21,10 @@ app.get('*', function (req, res) {
   } else {
     res.cookie('space_name', '');
   }
-  console.log('main thing');
   return res.sendFile(path.join(__dirname,'../dist/index.html'));
 });
 
-console.log('Listening on ' + port);
-app.listen(port);
+app.listen(port, () => {
+  console.log('Listening on ' + port );
+  console.log('For subdomain testing go to lvh.me:' + port);
+});
