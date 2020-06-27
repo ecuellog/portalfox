@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 
 function RegisterView() {
   const [creds, setCreds] = useState({
@@ -12,6 +13,7 @@ function RegisterView() {
     firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
+      useHistory().push('/dashboard');
     })
     .catch(function(error) {
       // Handle Errors here.
@@ -19,7 +21,7 @@ function RegisterView() {
       var errorMessage = error.message;
       console.log(error);
       // ...
-    });    
+    });
   }
 
   return (

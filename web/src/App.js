@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
+import DashboardView from './views/DashboardView';
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,6 +49,9 @@ function App(props) {
           </Route>
           <Route path="/register">
             <RegisterView />
+          </Route>
+          <Route path="/dashboard">
+            <DashboardView />
           </Route>
           {/*<PrivateRoute path="/protected">
             <ProtectedPage />

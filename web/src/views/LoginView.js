@@ -12,6 +12,7 @@ function LoginView() {
     firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
+      useHistory().push('/dashboard');
     })
     .catch(function(error) {
       // Handle Errors here.
