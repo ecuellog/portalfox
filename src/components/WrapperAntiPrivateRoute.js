@@ -5,18 +5,19 @@ import {
   Redirect
 } from "react-router-dom";
 
-function WrapperPrivateRoute(props) {
+// Wrapper for routes that should not be rendered if a user is authenticated.
+function WrapperAntiPrivateRoute(props) {
   let { isAuthenticated, children, ...rest } = props;
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        isAuthenticated ? (
+        !isAuthenticated ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/",
               state: { from: location }
             }}
           />
@@ -32,4 +33,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, null)(WrapperPrivateRoute)
+export default connect(mapStateToProps, null)(WrapperAntiPrivateRoute)

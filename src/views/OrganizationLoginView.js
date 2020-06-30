@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import * as firebase from "firebase/app";
+import AuthService from '../services/auth';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-function OrganizationLoginView() {
+function OrganizationLoginView(props) {
   const [creds, setCreds] = useState({
     email: '',
     password:''
   });
 
+  let history = useHistory();
+
   function onSubmit(e) {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
-    .then((res) => {
-      console.log(res);
-      useHistory().push('/dashboard');
-    })
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(error);
-      // ...
-    });    
+    AuthService.organizationLogin(creds.email, creds.password, props.organizationId)
+      .then((res) => {
+        console.log(res);
+        history.pushState('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   return (
@@ -47,4 +47,10 @@ function OrganizationLoginView() {
   );
 }
 
-export default OrganizationLoginView;
+function mapStateToProps(state) {
+  return {
+    organizationId: state.auth.organizationId
+  }
+};
+
+export default connect(mapStateToProps, null)(OrganizationLoginView);

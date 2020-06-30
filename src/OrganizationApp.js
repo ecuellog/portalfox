@@ -6,23 +6,35 @@ import {
 } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
+import { setOrganizationId } from './store/actions/auth';
 import NotFoundView from './views/NotFoundView';
 import OrganizationService from './services/firebase/organizations';
 import OrganizationLoginView from './views/OrganizationLoginView';
 import OrganizationMainView from './views/OrganizationMainView';
+import WrapperPrivateRoute from './components/WrapperPrivateRoute';
+import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
   const [spaceExists, setSpaceExists] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  OrganizationService.subdomainExists(spaceName)
-    .then((res) => {
-      if (res) {
-        setSpaceExists(true);
-      }
-      setLoading(false);
-    });
+  useEffect(() => {
+    OrganizationService.subdomainExists(spaceName)
+      .then((res) => {
+        if (res) {
+          setSpaceExists(true);
+          OrganizationService.getBySubdomain(spaceName)
+            .then((org) => {
+              props.setOrganizationId(org.id);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+        setLoading(false);
+      });
+  }, []);
 
 
   return (
@@ -38,18 +50,12 @@ function OrganizationApp(props) {
         spaceExists && !loading &&
         <Router>
           <Switch>
-            {/*<Route path="/public">
-              <PublicPage />
-    </Route>*/}
-            <Route path="/login">
+            <WrapperAntiPrivateRoute path="/login">
               <OrganizationLoginView />
-            </Route>
-            <Route path="/">
+            </WrapperAntiPrivateRoute>
+            <WrapperPrivateRoute path="/">
               <OrganizationMainView />
-            </Route>
-            {/*<PrivateRoute path="/protected">
-              <ProtectedPage />
-    </PrivateRoute>*/}
+            </WrapperPrivateRoute>
           </Switch>
         </Router>
       }
@@ -58,7 +64,9 @@ function OrganizationApp(props) {
 }
 
 function mapDispatchToProps(dispatch){
-  return {}
+  return {
+    setOrganizationId: (orgId) => dispatch(setOrganizationId(orgId))
+  }
 }
 
 function mapStateToProps(state){

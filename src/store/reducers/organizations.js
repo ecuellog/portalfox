@@ -6,7 +6,7 @@ var defaultState = {
   organizations: []
 }
 
-const auth = (state = defaultState, action) => {
+const organizations = (state = defaultState, action) => {
   switch (action.type) {
     case SET_ORGANIZATIONS:
       return {
@@ -19,4 +19,4 @@ const auth = (state = defaultState, action) => {
 }
 
 
-export default auth;
+export default organizations;

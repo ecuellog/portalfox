@@ -11,13 +11,11 @@ function PlatformLoginView() {
   let history = useHistory();
 
   function onSubmit(e) {
-
-
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
-      history.push('/dashboard');
+      history.push('/');
     })
     .catch(function(error) {
       // Handle Errors here.

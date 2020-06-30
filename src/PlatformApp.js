@@ -9,30 +9,26 @@ import PlatformRegisterView from './views/PlatformRegisterView';
 import PlatformLoginView from './views/PlatformLoginView';
 import PlatformDashboardView from './views/PlatformDashboardView';
 import NotFoundView from './views/NotFoundView';
+import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
+import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 
 function PlatformApp(props) {
   return (
     <div>
       <Router>
         <Switch>
-          {/*<Route path="/public">
-            <PublicPage />
-  </Route>*/}
-          <Route path="/login">
+          <WrapperAntiPrivateRoute path="/login">
             <PlatformLoginView />
-          </Route>
-          <Route path="/register">
+          </WrapperAntiPrivateRoute>
+          <WrapperAntiPrivateRoute path="/register">
             <PlatformRegisterView />
-          </Route>
-          <Route path="/dashboard">
+          </WrapperAntiPrivateRoute>
+          <WrapperPrivateRoute path="/">
             <PlatformDashboardView />
-          </Route>
-          <Route path="/404">
+          </WrapperPrivateRoute>
+          <Route path="*">
             <NotFoundView />
           </Route>
-          {/*<PrivateRoute path="/protected">
-            <ProtectedPage />
-  </PrivateRoute>*/}
         </Switch>
       </Router>
     </div>

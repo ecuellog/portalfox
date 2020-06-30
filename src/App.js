@@ -10,9 +10,9 @@ function App(props) {
   let spaceName = Cookies.get('space_name');
 
   useEffect(() => {
-    let unsubscribe = firebase.auth().onAuthStateChanged(function(user) {
+    let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-         props.setAuthenticatedUser(user);
+        props.setAuthenticatedUser(user);
       } else {
         props.unsetAuthenticatedUser();
       }
@@ -25,7 +25,7 @@ function App(props) {
     <div>
       <h3>
         { props.isAuthenticated &&
-          <span>You are authenticated as <b>{props.authenticatedUser.email}</b></span>
+          <span>You are authenticated as <b>{props.authenticatedUser.uid}</b></span>
         }
         { !props.isAuthenticated && 
           <span>You are not authenticated</span>

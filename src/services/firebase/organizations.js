@@ -1,11 +1,11 @@
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 
 export default class OrganizationService {
   static listByUser(userId) {
     return new Promise((resolve, reject) => {
       const db = firebase.firestore();
 
-      db.collection('organizations').where("owner", "==", userId).get()
+      db.collection('organizations').where('owner', '==', userId).get()
         .then((querySnapshot) => {
           let orgs = [];
           querySnapshot.forEach(function(doc) {
@@ -20,6 +20,33 @@ export default class OrganizationService {
         })
         .catch((error) => {
           reject('There was an error fetching user organizations');
+        });
+    });
+  }
+
+  static getBySubdomain(subdomain) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      db.collection('organizations').where('subdomain', '==', subdomain).get()
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            resolve(null);
+          } else {
+            let orgs = [];
+            querySnapshot.forEach(function(doc) {
+              orgs.push({id: doc.id, ...doc.data()});
+            });
+            
+            if (orgs.length > 1) {
+              reject('There are more than one registered organizations using the same subdomain.')
+            } else {
+              resolve(orgs[0]);
+            }
+          }
+        })
+        .catch((error) => {
+          reject('There was an error fetching organization' + error);
         });
     });
   }

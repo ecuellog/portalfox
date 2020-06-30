@@ -1,11 +1,13 @@
 import {
   SET_AUTHENTICATED_USER,
-  UNSET_AUTHENTICATED_USER
+  UNSET_AUTHENTICATED_USER,
+  SET_ORGANIZATION_ID
 } from '../actions/auth';
 
 var defaultState = {
   user: {},
-  isAuthenticated: false
+  isAuthenticated: false,
+  organizationId: null
 }
 
 const auth = (state = defaultState, action) => {
@@ -22,10 +24,14 @@ const auth = (state = defaultState, action) => {
         user: {},
         isAuthenticated: false
       };
+    case SET_ORGANIZATION_ID:
+      return {
+        ...state,
+        organizationId: action.orgId
+      };
     default:
       return state;
   }
 }
-
 
 export default auth;
