@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 
-function LoginView() {
+function PlatformRegisterView() {
   const [creds, setCreds] = useState({
     email: '',
     password:''
@@ -9,7 +10,7 @@ function LoginView() {
 
   function onSubmit(e) {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
+    firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
       useHistory().push('/dashboard');
@@ -20,11 +21,12 @@ function LoginView() {
       var errorMessage = error.message;
       console.log(error);
       // ...
-    });    
+    });
   }
 
   return (
     <div>
+      <h2>Register</h2>
       <form onSubmit={onSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -40,10 +42,10 @@ function LoginView() {
           value={creds.password}
           onChange={e => setCreds({...creds, password: e.target.value})}
         ></input>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 }
 
-export default LoginView;
+export default PlatformRegisterView;

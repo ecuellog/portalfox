@@ -64,4 +64,17 @@ export default class OrganizationService {
         })
     });
   }
+
+  static subdomainExists(subdomain) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+      
+      db.collection('subdomains').doc(subdomain).get()
+        .then((doc) => {
+          resolve(doc.exists)
+        }).catch((error) => {
+          reject('There was an error checking the subdomain' + error);
+        })
+    });
+  }
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CreateOrganization from '../components/CreateOrganization';
 import { fetchOrganizations } from '../store/actions/organizations';
 
-function Dashboard(props) {
+function PlatformDashboardView(props) {
   useEffect(() => {
     if(props.isAuthenticated) {
       props.fetchOrganizations();
@@ -39,4 +39,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformDashboardView);

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import * as firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
 
-function RegisterView() {
+function OrganizationLoginView() {
   const [creds, setCreds] = useState({
     email: '',
     password:''
@@ -10,7 +9,7 @@ function RegisterView() {
 
   function onSubmit(e) {
     e.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
+    firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
       useHistory().push('/dashboard');
@@ -21,12 +20,12 @@ function RegisterView() {
       var errorMessage = error.message;
       console.log(error);
       // ...
-    });
+    });    
   }
 
   return (
     <div>
-      <h2>Register</h2>
+      OrganizationLoginView
       <form onSubmit={onSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -42,10 +41,10 @@ function RegisterView() {
           value={creds.password}
           onChange={e => setCreds({...creds, password: e.target.value})}
         ></input>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 }
 
-export default RegisterView;
+export default OrganizationLoginView;
