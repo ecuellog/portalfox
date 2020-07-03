@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
-import AuthService from '../services/auth';
+import * as firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import BtnGoogleLogin from '../components/BtnGoogleLogin';
 
-function OrganizationLoginView(props) {
+function OrganizationRegisterView() {
   const [creds, setCreds] = useState({
     email: '',
     password:''
   });
 
-  let history = useHistory();
-
   function onSubmit(e) {
     e.preventDefault();
-    AuthService.organizationLogin(creds.email, creds.password, props.organizationId)
-      .then((res) => {
-        console.log(res);
-        history.pushState('/');
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
+    .then((res) => {
+      console.log(res);
+      useHistory().push('/dashboard');
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(error);
+      // ...
+    });
   }
 
   return (
     <div>
-      OrganizationLoginView
+      <h2>Register</h2>
       <form onSubmit={onSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -42,12 +44,12 @@ function OrganizationLoginView(props) {
           value={creds.password}
           onChange={e => setCreds({...creds, password: e.target.value})}
         ></input>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
+        <div>
+          <p>OR</p>
+          <BtnGoogleLogin method="register" org="true"/>
+        </div>
       </form>
-      <div>
-        <p>OR</p>
-        <BtnGoogleLogin method="login" org="true"/>
-      </div>
     </div>
   );
 }
@@ -58,4 +60,4 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps, null)(OrganizationLoginView);
+export default connect(mapStateToProps, null)(OrganizationRegisterView);

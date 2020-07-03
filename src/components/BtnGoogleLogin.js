@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import * as firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import AuthService from '../services/auth';
 
@@ -8,28 +8,29 @@ function BtnGoogleLogin(props) {
   let history = useHistory();
 
   function onGoogleLoginSuccess(googleUser) {
-    if (props.method === 'login') {
-      AuthService.platformGoogleLogin(googleUser.getAuthResponse().id_token)
-        .then((res) => {
-          console.log(res);
-          history.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          alert('There was an error using Google Login');
-        })
-    }
+    callBackendAuth(googleUser)
+      .then((res) => {
+        console.log(res);
+        history.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('There was an error using Google Login');
+      })
+  }
 
-    if (props.method === 'register') {
-      AuthService.platformGoogleRegister(googleUser.getAuthResponse().id_token)
-        .then((res) => {
-          console.log(res);
-          history.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          alert('There was an error using Google Registration');
-        })
+  function callBackendAuth(googleUser) {
+    if (props.method === 'login' && props.org === true) {
+      return AuthService.organizationGoogleLogin(googleUser.getAuthResponse().id_token, props.organizationId)
+    }
+    if (props.method === 'login' && props.org === false) {
+     return AuthService.platformGoogleLogin(googleUser.getAuthResponse().id_token)
+    }
+    if (props.method === 'register' && props.org === true) {
+      return AuthService.organizationGoogleRegister(googleUser.getAuthResponse().id_token, props.organizationId, inviteCode)
+    }
+    if (props.method === 'register' && props.org === false) {
+      return AuthService.platformGoogleRegister(googleUser.getAuthResponse().id_token)
     }
   }
 
@@ -49,4 +50,10 @@ function BtnGoogleLogin(props) {
   );
 }
 
-export default BtnGoogleLogin;
+function mapStateToProps(state) {
+  return {
+    organizationId: state.auth.organizationId
+  }
+};
+
+export default connect(mapStateToProps, null)(BtnGoogleLogin);

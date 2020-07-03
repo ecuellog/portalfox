@@ -13,6 +13,7 @@ import OrganizationLoginView from './views/OrganizationLoginView';
 import OrganizationMainView from './views/OrganizationMainView';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
+import OrganizationRegisterView from './views/OrganizationRegisterView';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
@@ -52,6 +53,9 @@ function OrganizationApp(props) {
           <Switch>
             <WrapperAntiPrivateRoute path="/login">
               <OrganizationLoginView />
+            </WrapperAntiPrivateRoute>
+            <WrapperAntiPrivateRoute path="/login">
+              <OrganizationRegisterView />
             </WrapperAntiPrivateRoute>
             <WrapperPrivateRoute path="/">
               <OrganizationMainView />

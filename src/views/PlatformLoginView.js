@@ -50,7 +50,7 @@ function PlatformLoginView() {
       </form>
       <div>
         <p>OR</p>
-        <BtnGoogleLogin method="login"/>
+        <BtnGoogleLogin method="login" org="false"/>
       </div>
     </div>
   );

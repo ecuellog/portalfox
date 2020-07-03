@@ -46,7 +46,7 @@ function PlatformRegisterView() {
         <button type="submit">Register</button>
         <div>
           <p>OR</p>
-          <BtnGoogleLogin method="register"/>
+          <BtnGoogleLogin method="register" org="false"/>
         </div>
       </form>
     </div>
