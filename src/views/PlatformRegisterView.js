@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
+import BtnGoogleLogin from '../components/BtnGoogleLogin';
 
 function PlatformRegisterView() {
   const [creds, setCreds] = useState({
@@ -43,6 +44,10 @@ function PlatformRegisterView() {
           onChange={e => setCreds({...creds, password: e.target.value})}
         ></input>
         <button type="submit">Register</button>
+        <div>
+          <p>OR</p>
+          <BtnGoogleLogin method="register"/>
+        </div>
       </form>
     </div>
   );

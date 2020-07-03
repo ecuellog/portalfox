@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import * as firebase from 'firebase/app';
 import { useHistory } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+import BtnGoogleLogin from '../components/BtnGoogleLogin';
 
 function PlatformLoginView() {
   const [creds, setCreds] = useState({
@@ -46,6 +48,10 @@ function PlatformLoginView() {
         ></input>
         <button type="submit">Login</button>
       </form>
+      <div>
+        <p>OR</p>
+        <BtnGoogleLogin method="login"/>
+      </div>
     </div>
   );
 }

@@ -43,6 +43,10 @@ function OrganizationLoginView(props) {
         ></input>
         <button type="submit">Login</button>
       </form>
+      <div>
+        <p>OR</p>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+      </div>
     </div>
   );
 }

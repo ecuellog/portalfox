@@ -8,8 +8,22 @@ export default class AuthService {
       password,
       organizationId
     })
-    .then((res) => {
-      return firebase.auth().signInWithCustomToken(res.data.token)
-    });
+      .then((res) => {
+        return firebase.auth().signInWithCustomToken(res.data.token)
+      });
+  }
+
+  static platformGoogleLogin(tokenId) {
+    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/platformGoogleLogin', {tokenId})
+      .then((res) => {
+        return firebase.auth().signInWithCustomToken(res.data.token)
+      });
+  }
+
+  static platformGoogleRegister(tokenId) {
+    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/platformGoogleRegister', {tokenId})
+      .then((res) => {
+        return firebase.auth().signInWithCustomToken(res.data.token)
+      });
   }
 }
