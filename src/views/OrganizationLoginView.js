@@ -17,11 +17,17 @@ function OrganizationLoginView(props) {
     AuthService.organizationLogin(creds.email, creds.password, props.organizationId)
       .then((res) => {
         console.log(res);
-        history.pushState('/');
+        history.push('/');
       })
       .catch((error) => {
         console.log(error);
       })
+  }
+
+  function redirectToGoogleLogin(e) {
+    e.preventDefault();
+    console.log('heppened')
+    window.location.replace(`http://lvh.me:4001/orgGoogleAuthRedirect?orgId=${props.organizationId}`)
   }
 
   return (
@@ -46,7 +52,7 @@ function OrganizationLoginView(props) {
       </form>
       <div>
         <p>OR</p>
-        <BtnGoogleLogin method="login" org="true"/>
+        <button onClick={redirectToGoogleLogin}>Login with Google</button>
       </div>
     </div>
   );

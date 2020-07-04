@@ -11,6 +11,7 @@ import PlatformDashboardView from './views/PlatformDashboardView';
 import NotFoundView from './views/NotFoundView';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
+import OrganizationGoogleAuthRedirect from './components/OrganizationGoogleAuthRedirect';
 
 function PlatformApp(props) {
   return (
@@ -23,6 +24,9 @@ function PlatformApp(props) {
           <WrapperAntiPrivateRoute path="/register">
             <PlatformRegisterView />
           </WrapperAntiPrivateRoute>
+          <Route path="/orgGoogleAuthRedirect">
+            <OrganizationGoogleAuthRedirect />
+          </Route>
           <WrapperPrivateRoute path="/">
             <PlatformDashboardView />
           </WrapperPrivateRoute>
