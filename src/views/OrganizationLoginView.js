@@ -3,6 +3,7 @@ import AuthService from '../services/auth';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import BtnGoogleLogin from '../components/BtnGoogleLogin';
+import buildUrl from 'build-url';
 
 function OrganizationLoginView(props) {
   const [creds, setCreds] = useState({
@@ -26,8 +27,13 @@ function OrganizationLoginView(props) {
 
   function redirectToGoogleLogin(e) {
     e.preventDefault();
-    console.log('heppened')
-    window.location.replace(`http://lvh.me:4001/orgGoogleAuthRedirect?orgId=${props.organizationId}`)
+    let url = buildUrl('http://lvh.me:4001/orgGoogleAuthRedirect', {
+      queryParams: {
+        orgId: props.organizationId,
+        authMode: 'login'
+      }
+    });
+    window.location.replace(url);
   }
 
   return (

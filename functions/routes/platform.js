@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../config.js');
+const admin = require('firebase-admin');
 
 const clientId = config.gcloud.clientId;
 const client = config.gcloud.client;

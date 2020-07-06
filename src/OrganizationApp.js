@@ -14,6 +14,7 @@ import OrganizationMainView from './views/OrganizationMainView';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 import OrganizationRegisterView from './views/OrganizationRegisterView';
+import OrganizationGoogleAuthReturn from './components/OrganizationGoogleAuthReturn';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
@@ -51,10 +52,13 @@ function OrganizationApp(props) {
         spaceExists && !loading &&
         <Router>
           <Switch>
+            <Route path="/googleAuthReturn">
+              <OrganizationGoogleAuthReturn />
+            </Route>
             <WrapperAntiPrivateRoute path="/login">
               <OrganizationLoginView />
             </WrapperAntiPrivateRoute>
-            <WrapperAntiPrivateRoute path="/login">
+            <WrapperAntiPrivateRoute path="/register">
               <OrganizationRegisterView />
             </WrapperAntiPrivateRoute>
             <WrapperPrivateRoute path="/">

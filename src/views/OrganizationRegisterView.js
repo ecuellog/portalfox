@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import * as firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
-import BtnGoogleLogin from '../components/BtnGoogleLogin';
+import buildUrl from 'build-url';
 
-function OrganizationRegisterView() {
+function OrganizationRegisterView(props) {
   const [creds, setCreds] = useState({
     email: '',
     password:''
@@ -24,6 +24,17 @@ function OrganizationRegisterView() {
       console.log(error);
       // ...
     });
+  }
+
+  function redirectToGoogleRegister(e) {
+    e.preventDefault();
+    let url = buildUrl('http://lvh.me:4001/orgGoogleAuthRedirect', {
+      queryParams: {
+        orgId: props.organizationId,
+        authMode: 'register'
+      }
+    });
+    window.location.replace(url);
   }
 
   return (
@@ -47,7 +58,7 @@ function OrganizationRegisterView() {
         <button type="submit">Register</button>
         <div>
           <p>OR</p>
-          <BtnGoogleLogin method="register" org="true"/>
+          <button onClick={redirectToGoogleRegister}>Register with Google</button>
         </div>
       </form>
     </div>
