@@ -113,9 +113,8 @@ router.get('/googleRegisterRedirect', async (req, res) => {
       })
     })
     .then((decodedToken) => {
-      console.log(decodedToken);
       let payload = decodedToken.getPayload();
-      admin.auth().getUser(`${payload.sub}${organizationId}`)
+      admin.auth().getUser(`${payload.sub}-${organizationId}`)
         .then(() => {
           return res.status(403).json({error: 'User already registered. Please log in.'});
         })
@@ -123,8 +122,6 @@ router.get('/googleRegisterRedirect', async (req, res) => {
           if(error.code === 'auth/user-not-found') {
             admin.auth().createCustomToken(`${payload.sub}${organizationId}`)
               .then((customToken) => {
-                console.log('Sending custom token');
-                console.log(customToken);
                 return res.redirect(url.format({
                   pathname: `http://${organization.subdomain}.lvh.me:4001/googleAuthReturn`,
                   query: {
@@ -182,7 +179,7 @@ router.get('/googleLoginRedirect', async (req, res) => {
     })
     .then((decodedToken) => {
       let payload = decodedToken.getPayload();
-      return admin.auth().getUser(`${payload.sub}${organizationId}`)
+      return admin.auth().getUser(`${payload.sub}-${organizationId}`)
     })
     .then((userRecord) => {
       return admin.auth().createCustomToken(userRecord.uid);
