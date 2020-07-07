@@ -102,7 +102,7 @@ router.get('/googleRegisterRedirect', async (req, res) => {
         code: req.query.code,
         client_id: config.gcloud.clientId,
         client_secret: config.gcloud.clientSecret,
-        redirect_uri: 'http://localhost:5001/portalfox-68431/us-central1/widgets/orgs/googleRegisterRedirect',
+        redirect_uri: `${config.general.serverUrl}/widgets/orgs/googleRegisterRedirect`,
         grant_type: 'authorization_code'
       })
     })
@@ -120,10 +120,10 @@ router.get('/googleRegisterRedirect', async (req, res) => {
         })
         .catch((error) => {
           if(error.code === 'auth/user-not-found') {
-            admin.auth().createCustomToken(`${payload.sub}${organizationId}`)
+            admin.auth().createCustomToken(`${payload.sub}-${organizationId}`)
               .then((customToken) => {
                 return res.redirect(url.format({
-                  pathname: `http://${organization.subdomain}.lvh.me:4001/googleAuthReturn`,
+                  pathname: `${config.general.clientUrl.protocol}://${organization.subdomain}.${config.general.clientUrl.domain}/googleAuthReturn`,
                   query: {
                     token: customToken
                   }
@@ -167,7 +167,7 @@ router.get('/googleLoginRedirect', async (req, res) => {
         code: req.query.code,
         client_id: config.gcloud.clientId,
         client_secret: config.gcloud.clientSecret,
-        redirect_uri: 'http://localhost:5001/portalfox-68431/us-central1/widgets/orgs/googleLoginRedirect',
+        redirect_uri: `${config.general.serverUrl}/widgets/orgs/googleLoginRedirect`,
         grant_type: 'authorization_code'
       })
     })
@@ -186,7 +186,7 @@ router.get('/googleLoginRedirect', async (req, res) => {
     })
     .then((customToken) => {
       return res.redirect(url.format({
-        pathname: `http://${organization.subdomain}.lvh.me:4001/googleAuthReturn`,
+        pathname: `${config.general.clientUrl.protocol}://${organization.subdomain}.${config.general.clientUrl.domain}/googleAuthReturn`,
         query: {
           token: customToken
         }

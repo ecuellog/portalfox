@@ -8,8 +8,6 @@ const port = 4001;
 
 const compiler = webpack(config);
 
-console.log('PATH IS ' + config.output.publicPath)
-
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   writeToDisk: true

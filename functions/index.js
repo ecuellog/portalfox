@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const express = require('express');
-const serviceAccount = require('./portalfox-68431-ddb078d2402a.json');
+const serviceAccount = require(config.gcloud.serviceAccountLoc);
 
 // Routes
 const orgs = require('./routes/orgs.js');
@@ -12,9 +12,13 @@ const platform = require('./routes/platform.js');
 
 const app = express();
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+if (config.general.environment === 'dev') {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+} else {
+  admin.initializeApp();
+}
 
 app.use(cors());
 
