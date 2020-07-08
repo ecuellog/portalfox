@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import AuthService from '../services/auth';
+import googleLogo from '../assets/images/google/g-logo.png';
 
 function BtnGoogleLogin(props) {
   let history = useHistory();
@@ -20,17 +21,12 @@ function BtnGoogleLogin(props) {
   }
 
   function callBackendAuth(googleUser) {
-    if (props.method === 'login' && props.org === true) {
-      return AuthService.organizationGoogleLogin(googleUser.getAuthResponse().id_token, props.organizationId)
-    }
-    if (props.method === 'login' && props.org === false) {
-     return AuthService.platformGoogleLogin(googleUser.getAuthResponse().id_token)
-    }
-    if (props.method === 'register' && props.org === true) {
-      return AuthService.organizationGoogleRegister(googleUser.getAuthResponse().id_token, props.organizationId, inviteCode)
-    }
-    if (props.method === 'register' && props.org === false) {
+    if (props.method === 'login') {
+      return AuthService.platformGoogleLogin(googleUser.getAuthResponse().id_token)
+    } else if (props.method === 'register') {
       return AuthService.platformGoogleRegister(googleUser.getAuthResponse().id_token)
+    } else {
+      throw new Error('Method prop not set correctly.');
     }
   }
 
@@ -46,6 +42,16 @@ function BtnGoogleLogin(props) {
       onSuccess={onGoogleLoginSuccess}
       onFailure={onGoogleLoginFailure}
       cookiePolicy={'single_host_origin'}
+      render={renderProps => (
+        <button
+          className="btn btn-google"
+          onClick={renderProps.onClick}
+          disabled={renderProps.disabled}
+        >
+          <img className="google-logo" src={googleLogo}></img>
+          <span>{props.method === 'login' ? 'Login' : 'Register'} with Google</span>
+        </button>
+      )}
     />
   );
 }

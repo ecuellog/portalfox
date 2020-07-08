@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+$primary: #3B3461;
+$scondary: #F6564B;
+$font-family-sans-serif: "Lato";
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+
+.btn-google {
+  border: 1px solid darkslategrey;
+  color: darkslategrey;
+
+  .google-logo {
+    float: left;
+    width: 24px;
+  }
+
+  span {
+    margin-left: -24px;
+  }
+}

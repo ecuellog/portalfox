@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import PlatformRegisterView from './views/PlatformRegisterView';
-import PlatformLoginView from './views/PlatformLoginView';
+import PlatformLoginView from './views/PlatformLoginView/PlatformLoginView';
 import PlatformDashboardView from './views/PlatformDashboardView';
 import NotFoundView from './views/NotFoundView';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';

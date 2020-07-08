@@ -5,6 +5,7 @@ import PlatformApp from './PlatformApp';
 import { connect } from 'react-redux';
 import { setAuthenticatedUser, unsetAuthenticatedUser } from './store/actions/auth';
 import * as firebase from "firebase/app";
+import './index.scss';
 
 function App(props) {
   let spaceName = Cookies.get('space_name');
@@ -23,14 +24,6 @@ function App(props) {
 
   return (
     <div>
-      <h3>
-        { props.isAuthenticated &&
-          <span>You are authenticated as <b>{props.authenticatedUser.uid}</b></span>
-        }
-        { !props.isAuthenticated && 
-          <span>You are not authenticated</span>
-        }
-      </h3>
       <div>
         {
           spaceName && 
