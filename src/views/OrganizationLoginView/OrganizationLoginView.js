@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import AuthService from '../services/auth';
+import AuthService from '../../services/auth';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import BtnGoogleLogin from '../components/BtnGoogleLogin';
 import buildUrl from 'build-url';
 
 function OrganizationLoginView(props) {
@@ -33,7 +32,7 @@ function OrganizationLoginView(props) {
         authMode: 'login'
       }
     });
-    window.location.replace(url);
+    window.location.assign(url);
   }
 
   return (

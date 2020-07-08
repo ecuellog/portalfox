@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { setOrganizationId } from './store/actions/auth';
 import NotFoundView from './views/NotFoundView';
 import OrganizationService from './services/firebase/organizations';
-import OrganizationLoginView from './views/OrganizationLoginView';
+import OrganizationLoginView from './views/OrganizationLoginView/OrganizationLoginView';
 import OrganizationMainView from './views/OrganizationMainView';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';

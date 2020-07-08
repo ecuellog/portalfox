@@ -31,7 +31,6 @@ function OrganizationGoogleAuthRedirect() {
     
         window.location.replace(url);
       });
-
   }, []);
 
   return (
