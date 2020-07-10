@@ -3,7 +3,8 @@ import {
 } from '../actions/organizations';
 
 var defaultState = {
-  organizations: []
+  organizations: [],
+  activeOrganization: null
 }
 
 const organizations = (state = defaultState, action) => {

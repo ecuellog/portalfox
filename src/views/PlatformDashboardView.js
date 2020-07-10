@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import * as firebase from "firebase/app";
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import CreateOrganization from '../components/CreateOrganization';
 import { fetchOrganizations } from '../store/actions/organizations';
+import WrapperSideBar from '../components/WrapperSideBar/WrapperSideBar';
+import PlatformDashboardSideBar from '../components/PlatformDashboardSideBar/PlatformDashboardSideBar';
+import PlatformDashboardOverview from '../components/PlatformDashboardOverview/PlatformDashboardOverview';
 
 function PlatformDashboardView(props) {
   useEffect(() => {
@@ -12,16 +13,9 @@ function PlatformDashboardView(props) {
   }, [props.isAuthenticated]);
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <p>The organizations you manage will be listed here</p>
-
-      { props.organizations.map(org => (
-        <li key={org.id}>{org.name} - {org.subdomain}.portalfox.com.mx</li>
-      ))}
-
-      <CreateOrganization/>
-    </div>
+    <WrapperSideBar sidebar={<PlatformDashboardSideBar/>}>
+      <PlatformDashboardOverview/>
+    </WrapperSideBar>
   );
 }
 

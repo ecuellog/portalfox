@@ -1,0 +1,35 @@
+@import '../../index.scss';
+
+.Component_WrapperSideBar {
+  .sidebar-container {
+    width: 260px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 2px 0px 7px 0px #00000024;
+    padding: 12px;
+
+    hr {
+      height: 1px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .link {
+      color: gray;
+      padding: 10px;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+
+      &.active {
+        color: $primary;
+      }
+
+      &:hover {
+        background-color: #eaeaea;
+        border-radius: 5px;
+      }
+    }
+  }
+}

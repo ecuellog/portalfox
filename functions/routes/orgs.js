@@ -162,6 +162,7 @@ router.get('/googleLoginRedirect', async (req, res) => {
 
   // Get Google OAuth Endpoints from the Discovery API
   axios.get(config.gcloud.discoveryURL)
+    // Get Access Token
     .then((discoveryDoc) => {
       return axios.post(discoveryDoc.data.token_endpoint, {
         code: req.query.code,
@@ -171,6 +172,7 @@ router.get('/googleLoginRedirect', async (req, res) => {
         grant_type: 'authorization_code'
       })
     })
+    // Verify Access Token and decode
     .then((res) => {
       return client.verifyIdToken({
         idToken: res.data.id_token,

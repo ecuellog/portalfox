@@ -3,6 +3,9 @@ import AuthService from '../../services/auth';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import buildUrl from 'build-url';
+import './OrganizationLoginView.scss';
+import googleLogo from '../../assets/images/google/g-logo.png';
+import * as _ from 'lodash';
 
 function OrganizationLoginView(props) {
   const [creds, setCreds] = useState({
@@ -28,7 +31,7 @@ function OrganizationLoginView(props) {
     e.preventDefault();
     let url = buildUrl('http://lvh.me:4001/orgGoogleAuthRedirect', {
       queryParams: {
-        orgId: props.organizationId,
+        orgId: props.organization.id,
         authMode: 'login'
       }
     });
@@ -36,36 +39,48 @@ function OrganizationLoginView(props) {
   }
 
   return (
-    <div>
-      OrganizationLoginView
-      <form onSubmit={onSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          value={creds.email}
-          onChange={e => setCreds({...creds, email: e.target.value})}
-        ></input><br/>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={creds.password}
-          onChange={e => setCreds({...creds, password: e.target.value})}
-        ></input>
-        <button type="submit">Login</button>
+    <div className="login-register-container d-flex flex-column justify-content-center h-100">
+      <h1 className="text-center mb-5">Log into {_.get(props, 'organization.name')} </h1>
+      <form className="mb-0" onSubmit={onSubmit}>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={creds.email}
+            onChange={e => setCreds({...creds, email: e.target.value})}
+          >
+          </input>
+        </div>
+        <div className="form-group mb-4">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="form-control"
+            value={creds.password}
+            onChange={e => setCreds({...creds, password: e.target.value})}
+          >
+          </input>
+        </div>
+        <button type="submit" className="btn btn-primary btn-block">Login</button>
       </form>
-      <div>
-        <p>OR</p>
-        <button onClick={redirectToGoogleLogin}>Login with Google</button>
-      </div>
+      <h6 className="py-4 text-center">or</h6>
+      <button
+        className="btn btn-google"
+        onClick={redirectToGoogleLogin}
+      >
+        <img className="google-logo" src={googleLogo}></img>
+        <span>Login with Google</span>
+      </button>
     </div>
   );
 }
 
 function mapStateToProps(state) {
   return {
-    organizationId: state.auth.organizationId
+    organization: state.auth.organization
   }
 };
 

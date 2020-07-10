@@ -1,6 +1,6 @@
 export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
 export const UNSET_AUTHENTICATED_USER = 'UNSET_AUTHENTICATED_USER';
-export const SET_ORGANIZATION_ID = 'SET_ORGANIZATION_ID';
+export const SET_ORGANIZATION = 'SET_ORGANIZATION';
 
 // Basic
 export function setAuthenticatedUser(user) {
@@ -16,9 +16,9 @@ export function unsetAuthenticatedUser() {
   }
 }
 
-export function setOrganizationId(orgId) {
+export function setOrganization(org) {
   return {
-    type: SET_ORGANIZATION_ID,
-    orgId
+    type: SET_ORGANIZATION,
+    org
   }
 }

@@ -1,12 +1,20 @@
 import OrganizationService from "../../services/firebase/organizations";
 
 export const SET_ORGANIZATIONS = 'SET_ORGANIZATIONS';
+export const SET_ACTIVE_ORGANIZATION = 'SET_ACTIVE_ORGANIZATION';
 
 // Basic
 export function setOrganizations(organizations) {
   return {
     type: SET_ORGANIZATIONS,
     organizations
+  }
+}
+
+export function setActiveOrganization(organization) {
+  return {
+    SET_ACTIVE_ORGANIZATION,
+    organization
   }
 }
 
@@ -24,7 +32,6 @@ export const fetchOrganizations = () => (dispatch, getState) => {
   })
 }
 
-// With middleware
 export const createOrganization = (orgInfo) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     OrganizationService.create({...orgInfo, owner: getState().auth.user.uid})

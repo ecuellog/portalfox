@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import { setOrganizationId } from './store/actions/auth';
+import { setOrganization } from './store/actions/auth';
 import NotFoundView from './views/NotFoundView';
 import OrganizationService from './services/firebase/organizations';
 import OrganizationLoginView from './views/OrganizationLoginView/OrganizationLoginView';
@@ -28,7 +28,7 @@ function OrganizationApp(props) {
           setSpaceExists(true);
           OrganizationService.getBySubdomain(spaceName)
             .then((org) => {
-              props.setOrganizationId(org.id);
+              props.setOrganization(org);
             })
             .catch((error) => {
               console.log(error);
@@ -73,7 +73,7 @@ function OrganizationApp(props) {
 
 function mapDispatchToProps(dispatch){
   return {
-    setOrganizationId: (orgId) => dispatch(setOrganizationId(orgId))
+    setOrganization: (org) => dispatch(setOrganization(org))
   }
 }
 

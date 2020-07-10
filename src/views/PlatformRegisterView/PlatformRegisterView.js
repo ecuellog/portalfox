@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
-import * as firebase from 'firebase/app';
-import { useHistory, Link } from 'react-router-dom';
+import * as firebase from "firebase/app";
+import { useHistory, Link } from "react-router-dom";
 import BtnGoogleLogin from '../../components/BtnGoogleLogin';
-import './PlatformLoginView.scss';
 import appLogo from '../../assets/images/logo_portalfox.png';
 
-function PlatformLoginView(props) {
+function PlatformRegisterView() {
   const [creds, setCreds] = useState({
     email: '',
     password:''
   });
 
-  let history = useHistory();
-
   function onSubmit(e) {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
+    firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
     .then((res) => {
       console.log(res);
-      history.push('/');
+      useHistory().push('/dashboard');
     })
     .catch(function(error) {
       // Handle Errors here.
@@ -26,14 +23,14 @@ function PlatformLoginView(props) {
       var errorMessage = error.message;
       console.log(error);
       // ...
-    });    
+    });
   }
 
   return (
     <div>
       <img src={appLogo} className="standard-app-logo p-1"></img>
       <div className="login-register-container d-flex flex-column justify-content-center">
-        <h1 className="text-center mb-5">Log into Portalfox</h1>
+        <h1 className="text-center mb-5">Create a Portalfox Account</h1>
         <form className="mb-0" onSubmit={onSubmit}>
           <div className="form-group">
             <input
@@ -57,16 +54,16 @@ function PlatformLoginView(props) {
             >
             </input>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">Login</button>
+          <button type="submit" className="btn btn-primary btn-block">Create account</button>
         </form>
         <h6 className="py-4 text-center">or</h6>
-        <BtnGoogleLogin method="login"/>
+        <BtnGoogleLogin method="register"/>
         <div className="text-center my-5">
-          New to Portalfox? <Link to="/register">Create an account</Link>
+          Already have an account? <Link to="/login">Log in</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default PlatformLoginView;
+export default PlatformRegisterView;
