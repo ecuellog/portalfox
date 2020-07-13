@@ -55,12 +55,15 @@ function OrganizationApp(props) {
             <Route path="/googleAuthReturn">
               <OrganizationGoogleAuthReturn />
             </Route>
+
             <WrapperAntiPrivateRoute path="/login">
               <OrganizationLoginView />
             </WrapperAntiPrivateRoute>
+
             <WrapperAntiPrivateRoute path="/register">
               <OrganizationRegisterView />
             </WrapperAntiPrivateRoute>
+            
             <WrapperPrivateRoute path="/">
               <OrganizationMainView />
             </WrapperPrivateRoute>

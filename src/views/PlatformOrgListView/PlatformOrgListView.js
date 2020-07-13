@@ -28,18 +28,25 @@ function PlatformOrgListView(props) {
       <img src={appLogo} className="standard-app-logo p-1"></img>
       { props.organizations.length > 0 && 
         <div className="container mt-5">
-          {props.organizations.map(organization => (
-            <div className="card" key={organization.id}>
-              <div className="card-body">
-                <h4 className="card-title">{organization.name}</h4>
-                <h6 className="card-subtitle mb-2 text-muted">{organization.subdomain}</h6>
+          <h2>Your Organizations</h2>
+          <div className="row">
+            {props.organizations.map(organization => (
+              <div className="col-md-4 my-2" key={organization.id}>
+                <div className="card clickable">
+                  <div className="card-body">
+                    <h4 className="card-title">{organization.name}</h4>
+                    <h6 className="card-subtitle mb-2 text-muted">{organization.subdomain}.portalfox.com</h6>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
-          <div className="col-md-4 card">
-            <div className="card-body d-flex flex-column text-center justify-content-center">
-              <i className="fas fa-plus create-org-icon"></i>
-              <span className="mt-4 create-org-text" onClick={handleCreateModalOpen}>Create Organization</span>
+            ))}
+            <div className="col-md-4 my-2">
+              <div className="card clickable" onClick={handleCreateModalOpen}>
+                <div className="card-body d-flex flex-column text-center justify-content-center">
+                  <i className="fas fa-plus create-org-icon"></i>
+                  <span className="mt-4 create-org-text">Create Organization</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

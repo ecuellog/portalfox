@@ -22,18 +22,23 @@ function PlatformApp(props) {
           <WrapperAntiPrivateRoute path="/login">
             <PlatformLoginView />
           </WrapperAntiPrivateRoute>
+
           <WrapperAntiPrivateRoute path="/register">
             <PlatformRegisterView />
           </WrapperAntiPrivateRoute>
+
           <Route path="/orgGoogleAuthRedirect">
             <OrganizationGoogleAuthRedirect />
           </Route>
-          <WrapperPrivateRoute path="/">
+
+          <WrapperPrivateRoute path="/" exact>
             <PlatformOrgListView/>
           </WrapperPrivateRoute>
+
           <WrapperPrivateRoute path="/overview">
             <PlatformDashboardView />
           </WrapperPrivateRoute>
+          
           <Route path="*">
             <NotFoundView />
           </Route>

@@ -46,7 +46,7 @@ export default class OrganizationService {
           }
         })
         .catch((error) => {
-          reject('There was an error fetching organization' + error);
+          reject('There was an error fetching organization. Error: ' + error);
         });
     });
   }
@@ -81,13 +81,13 @@ export default class OrganizationService {
                 });
               })
               .catch((error) => {
-                reject('There was an error creating the organization. Please try again. ---' + error);
+                reject('There was an error creating the organization. Please try again. Error: ' + error);
               })
           } else {
             reject('This subdomain has already been taken, please select another.');
           }
         }).catch((error) => {
-          reject('There was an error creating the organization. Please try again. ---' + error);
+          reject('There was an error creating the organization. Please try again. Error: ' + error);
         })
     });
   }

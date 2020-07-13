@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import OrganizationApp from './OrganizationApp';
 import PlatformApp from './PlatformApp';
@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { setAuthenticatedUser, unsetAuthenticatedUser } from './store/actions/auth';
 import * as firebase from "firebase/app";
 import './index.scss';
+import Loader from './components/Loader/Loader';
 
 function App(props) {
   let spaceName = Cookies.get('space_name');
+  let [initialAuthDone, setInitialAuthDone] = useState(false);
 
   useEffect(() => {
     let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -17,6 +19,8 @@ function App(props) {
       } else {
         props.unsetAuthenticatedUser();
       }
+
+      if (!initialAuthDone) setInitialAuthDone(true);
     });
 
     return () => {unsubscribe();}
@@ -24,16 +28,23 @@ function App(props) {
 
   return (
     <div>
-      <div>
-        {
-          spaceName && 
-          <OrganizationApp />
-        }
-        {
-          !spaceName && 
-          <PlatformApp />
-        }
-      </div>
+      {
+        !initialAuthDone &&
+        <Loader/>
+      }
+      {
+        initialAuthDone && 
+        <div>
+          {
+            spaceName && 
+            <OrganizationApp />
+          }
+          {
+            !spaceName && 
+            <PlatformApp />
+          }
+        </div>
+      }
     </div>
   );
 }

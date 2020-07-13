@@ -12,7 +12,7 @@ function WrapperAntiPrivateRoute(props) {
     <Route
       {...rest}
       render={({ location }) =>
-        !isAuthenticated ? (
+        isAuthenticated === false ? (
           children
         ) : (
           <Redirect

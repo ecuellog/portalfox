@@ -42,3 +42,14 @@ $modal-dialog-margin-y-sm-up: 6rem;
   object-fit: contain;
   height: 60px;
 }
+
+p.validation-error {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: red;
+  margin-left: 10px;
+}
+
+.clickable {
+  cursor: pointer;
+}
