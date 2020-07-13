@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as firebase from "firebase/app";
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ModalCreateOrganization from '../../components/ModalCreateOrganization';
 import { fetchOrganizations } from '../../store/actions/organizations';
@@ -7,6 +7,7 @@ import appLogo from '../../assets/images/logo_portalfox.png';
 import './PlatformOrgListView.scss';
 
 function PlatformOrgListView(props) {
+  let history = useHistory();
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,10 @@ function PlatformOrgListView(props) {
     setShowCreateModal(true);
   }
 
+  function onOrgClick(orgId) {
+    history.push(`/overview?orgId=${orgId}`);
+  }
+
   return (
     <div className="Component_PlatformOrgListView">
       <img src={appLogo} className="standard-app-logo p-1"></img>
@@ -31,7 +36,7 @@ function PlatformOrgListView(props) {
           <h2>Your Organizations</h2>
           <div className="row">
             {props.organizations.map(organization => (
-              <div className="col-md-4 my-2" key={organization.id}>
+              <div className="col-md-4 my-2" key={organization.id} onClick={() => onOrgClick(organization.id)}>
                 <div className="card clickable">
                   <div className="card-body">
                     <h4 className="card-title">{organization.name}</h4>
