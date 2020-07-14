@@ -4,9 +4,7 @@ import WrapperOrgViews from '../../components/WrapperOrgViews/WrapperOrgViews';
 
 function PlatformOrgOverviewView(props) {
   return (
-    <WrapperOrgViews>
-      <PlatformOrgOverview/>
-    </WrapperOrgViews>
+    <PlatformOrgOverview/>
   );
 }
 

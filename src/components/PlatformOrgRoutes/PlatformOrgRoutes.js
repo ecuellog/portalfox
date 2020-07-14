@@ -1,5 +1,10 @@
 import React from 'react';
-import { Route, Router, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import { withRouter } from 'react-router';
 import WrapperOrgViews from '../../components/WrapperOrgViews/WrapperOrgViews';
 import PlatformOrgOverviewView from '../../views/PlatformOrgOverviewView/PlatformOrgOverviewView';
 import PlatformOrgChannelsView from '../../views/PlatformOrgChannelsView/PlatformOrgChannelsView';
@@ -7,18 +12,16 @@ import PlatformOrgChannelsView from '../../views/PlatformOrgChannelsView/Platfor
 function PlatformOrgRoutes(props) {
   return (
     <WrapperOrgViews>
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <PlatformOrgOverviewView />
-          </Route>
-          <Route path="/channels" exact>
-            <PlatformOrgChannelsView />
-          </Route>
-        </Switch>
-      </Router>
+      <div>
+        <Route path={`${props.match.path}`} exact>
+          <PlatformOrgOverviewView />
+        </Route>
+        <Route path={`${props.match.path}/channels`} exact>
+          <PlatformOrgChannelsView />
+        </Route>
+      </div>
     </WrapperOrgViews>
   );
 }
 
-export default PlatformOrgRoutes;
+export default withRouter(PlatformOrgRoutes);

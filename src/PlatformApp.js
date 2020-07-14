@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PlatformRegisterView from './views/PlatformRegisterView/PlatformRegisterView';
 import PlatformLoginView from './views/PlatformLoginView/PlatformLoginView';
