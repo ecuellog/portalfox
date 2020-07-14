@@ -8,7 +8,7 @@ function WrapperSideBar(props) {
         <div className="sidebar-container">
           {props.sidebar}
         </div>
-        <div className="flex-grow-1">
+        <div className="children-container flex-grow-1">
           {props.children}
         </div>
       </div>
