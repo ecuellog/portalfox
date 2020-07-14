@@ -26,7 +26,7 @@ function PlatformOrgListView(props) {
   }
 
   function onOrgClick(orgId) {
-    history.push(`/overview?orgId=${orgId}`);
+    history.push(`/org/${orgId}`);
   }
 
   return (

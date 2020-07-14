@@ -19,6 +19,12 @@ function PlatformApp(props) {
     <div>
       <Router>
         <Switch>
+          {/* For Organization authentication only. */}
+          <Route path="/orgGoogleAuthRedirect">
+            <OrganizationGoogleAuthRedirect />
+          </Route>
+
+          {/* Authentication */}
           <WrapperAntiPrivateRoute path="/login">
             <PlatformLoginView />
           </WrapperAntiPrivateRoute>
@@ -27,18 +33,16 @@ function PlatformApp(props) {
             <PlatformRegisterView />
           </WrapperAntiPrivateRoute>
 
-          <Route path="/orgGoogleAuthRedirect">
-            <OrganizationGoogleAuthRedirect />
-          </Route>
-
+          {/* Dashboard routes */}
           <WrapperPrivateRoute path="/" exact>
             <PlatformOrgListView/>
           </WrapperPrivateRoute>
 
-          <WrapperPrivateRoute path="/overview">
+          <WrapperPrivateRoute path="/org/:orgId">
             <PlatformDashboardView />
           </WrapperPrivateRoute>
           
+          {/* 404 */}
           <Route path="*">
             <NotFoundView />
           </Route>

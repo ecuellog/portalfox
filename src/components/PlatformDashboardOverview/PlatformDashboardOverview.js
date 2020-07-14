@@ -7,23 +7,6 @@ import Loader from '../Loader/Loader';
 import fakeGraph from '../../assets/images/fake-graph.png';
 
 function PlatformDashboardOverview(props) {
-  let queryParams = new URLSearchParams(useLocation().search);
-
-  useEffect(() => {
-    if (props.firstOrganizationsFetchDone) {
-      let orgId = queryParams.get('orgId');
-  
-      let queryOrg = props.organizations.find(org => org.id === orgId);
-  
-      if(!queryOrg) {
-        // Redirect to not found
-        console.log('Org does not exist');
-      } else {
-        props.setActiveOrganization(queryOrg);
-      }
-    }
-  }, [props.firstOrganizationsFetchDone]);
-
   return (
     <div>
       {
