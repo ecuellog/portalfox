@@ -7,12 +7,14 @@ import {
 import { connect } from 'react-redux';
 import PlatformRegisterView from './views/PlatformRegisterView/PlatformRegisterView';
 import PlatformLoginView from './views/PlatformLoginView/PlatformLoginView';
-import PlatformDashboardView from './views/PlatformDashboardView';
+import PlatformOrgOverviewView from './views/PlatformOrgOverviewView/PlatformOrgOverviewView';
 import NotFoundView from './views/NotFoundView';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import OrganizationGoogleAuthRedirect from './components/OrganizationGoogleAuthRedirect';
 import PlatformOrgListView from './views/PlatformOrgListView/PlatformOrgListView';
+import PlatformOrgChannelsView from './views/PlatformOrgChannelsView/PlatformOrgChannelsView';
+import PlatformOrgRoutes from './components/PlatformOrgRoutes/PlatformOrgRoutes';
 
 function PlatformApp(props) {
   return (
@@ -39,7 +41,7 @@ function PlatformApp(props) {
           </WrapperPrivateRoute>
 
           <WrapperPrivateRoute path="/org/:orgId">
-            <PlatformDashboardView />
+            <PlatformOrgRoutes />
           </WrapperPrivateRoute>
           
           {/* 404 */}

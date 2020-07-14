@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchOrganizations, setActiveOrganization } from '../store/actions/organizations';
-import WrapperSideBar from '../components/WrapperSideBar/WrapperSideBar';
-import PlatformDashboardSideBar from '../components/PlatformDashboardSideBar/PlatformDashboardSideBar';
-import PlatformDashboardOverview from '../components/PlatformDashboardOverview/PlatformDashboardOverview';
-import Loader from '../components/Loader/Loader';
+import { fetchOrganizations, setActiveOrganization } from '../../store/actions/organizations';
+import WrapperSideBar from '../../components/WrapperSideBar/WrapperSideBar';
+import PlatformOrgSideBar from '../../components/PlatformOrgSideBar/PlatformOrgSideBar';
+import Loader from '../../components/Loader/Loader';
 
-function PlatformDashboardView(props) {
+function WrapperOrgViews(props) {
   useEffect(() => {
     if(props.isAuthenticated) {
       props.fetchOrganizations();
@@ -33,8 +32,8 @@ function PlatformDashboardView(props) {
     <div>
       {
         props.firstOrganizationsFetchDone &&
-        <WrapperSideBar sidebar={<PlatformDashboardSideBar/>}>
-          <PlatformDashboardOverview/>
+        <WrapperSideBar sidebar={<PlatformOrgSideBar/>}>
+          {props.children}
         </WrapperSideBar>
       }
       {
@@ -61,4 +60,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PlatformDashboardView));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WrapperOrgViews));

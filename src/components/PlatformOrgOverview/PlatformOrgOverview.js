@@ -6,7 +6,7 @@ import { setActiveOrganization } from '../../store/actions/organizations';
 import Loader from '../Loader/Loader';
 import fakeGraph from '../../assets/images/fake-graph.png';
 
-function PlatformDashboardOverview(props) {
+function PlatformOrgOverview(props) {
   return (
     <div>
       {
@@ -71,4 +71,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (PlatformDashboardOverview);
+export default connect(mapStateToProps, mapDispatchToProps) (PlatformOrgOverview);
