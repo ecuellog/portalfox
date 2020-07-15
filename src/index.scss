@@ -6,13 +6,7 @@
   font-style: normal;
 }
 
-$primary: #3B3461;
-$scondary: #F6564B;
-$font-family-sans-serif: "Lato";
-
-// Modals
-$modal-dialog-margin-y-sm-up: 6rem;
-
+@import './assets/styles/variables.scss';
 @import 'node_modules/bootstrap/scss/bootstrap';
 
 

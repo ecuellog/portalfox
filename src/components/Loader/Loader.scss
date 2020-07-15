@@ -1,11 +1,11 @@
-@import '../../index.scss';
+@import '../../assets/styles/variables.scss';
 
 .Component_Loader {
-    display: flex;
-    height: 100%;
-    max-height: 100vh;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  height: 100%;
+  max-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
 
   .loader {
     border: 6px solid #f3f3f3;
