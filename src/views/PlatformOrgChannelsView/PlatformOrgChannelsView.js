@@ -1,9 +1,10 @@
 import React from 'react';
+import PlatformOrgChannels from '../../components/PlatformOrgChannels/PlatformOrgChannels';
 
 function PlatformOrgChannelsView(props) {
 
   return (
-    <h2>hey</h2>
+    <PlatformOrgChannels/>
   );
 }
 
