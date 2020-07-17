@@ -1,7 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import appLogo from '../../assets/images/logo_portalfox.png';
 import './PlatformOrgSideBar.scss';
 import * as firebase from "firebase/app";
@@ -9,6 +8,21 @@ import * as _ from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 
 function PlatformOrgSideBar(props) {
+  let location = useLocation();
+  let links = {
+    overview: 'Overview',
+    users: 'Users',
+    channels: 'Channels',
+    billing: 'Billing',
+    settings: 'Settings'
+  };
+  const [currentLink, setCurrentLink] = useState(null);
+
+  useEffect(() => {
+    let paths = location.pathname.split('/');
+    setCurrentLink(paths[3]);
+  }, [location]);
+
   function onLogout() {
     firebase.auth().signOut()
       .then(() => {
@@ -34,12 +48,20 @@ function PlatformOrgSideBar(props) {
         >
           {_.get(props, 'organization.name')}
         </Dropdown.Toggle>
-
         <Dropdown.Menu>
+          <Dropdown.Item
+            to={`/`}
+            as={NavLink}
+            exact
+          >
+            See all projects
+          </Dropdown.Item>
+          <Dropdown.Divider/>
           { props.organizations.map(org => (
             <Dropdown.Item
               key={org.id}
-              activeClassName="active" to={`/org/${org.id}`}
+              activeClassName="active"
+              to={`/org/${org.id}/${currentLink}`}
               as={NavLink}
             >
               {org.name}
@@ -47,11 +69,9 @@ function PlatformOrgSideBar(props) {
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <NavLink className="link" activeClassName="active" to={`/org/${getOrgId()}`} exact>Overview</NavLink>
-      <NavLink className="link" activeClassName="active" to="/users">Users</NavLink>
-      <NavLink className="link" activeClassName="active" to={`/org/${getOrgId()}/channels`}>Channels</NavLink>
-      <NavLink className="link" activeClassName="active" to="/billing">Billing</NavLink>
-      <NavLink className="link" activeClassName="active" to="/settings">Settings</NavLink>
+      { Object.keys(links).map(link => (
+        <NavLink className="link" key={link} activeClassName="active" to={`/org/${getOrgId()}/${link}`}>{links[link]}</NavLink>
+      )) }
       <div className="flex-grow-1 d-flex align-items-end mb-3">
         <a className="link w-100 clickable" onClick={onLogout}>Logout</a>
       </div>

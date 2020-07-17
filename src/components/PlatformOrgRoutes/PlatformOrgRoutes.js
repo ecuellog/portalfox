@@ -13,7 +13,7 @@ function PlatformOrgRoutes(props) {
   return (
     <WrapperOrgViews>
       <div>
-        <Route path={`${props.match.path}`} exact>
+        <Route path={`${props.match.path}/overview`} exact>
           <PlatformOrgOverviewView />
         </Route>
         <Route path={`${props.match.path}/channels`} exact>
