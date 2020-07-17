@@ -56,3 +56,18 @@ export const updateChannel = (channelId, channelInfo) => (dispatch, getState) =>
       });
   })
 }
+
+export const deleteChannel = (channelId) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    let orgId = _.get(getState().organizations, 'activeOrganization.id');
+    ChannelService.delete(channelId, orgId)
+      .then((result) => {
+        let newChannels = getState().channels.channels.filter(channel => channel.id !== channelId);
+        dispatch(setChannels(newChannels));
+        resolve(result.message);
+      })
+      .catch((error) => {
+        reject(error);
+     });
+  })
+}

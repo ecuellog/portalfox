@@ -33,6 +33,30 @@ export default class ChannelService {
   static update(channelId, channelInfo, orgId) {
     return createOrUpdate(channelId, channelInfo, orgId);
   }
+  
+
+  static delete(channelId, orgId) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+      
+      const orgRef = db.collection('organizations').doc(orgId);
+      const channelRef = orgRef.collection('channels').doc(channelId);
+      
+      channelRef.delete()
+        .then(() => {
+          resolve({
+            message: `Channel has been successfully deleted.`,
+            data: {
+              channeId: channelId 
+            }
+          }); 
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(`There was an error deleting the channel.`);
+        });
+    });
+  }
 }
 
 function createOrUpdate(channelId, channelInfo, orgId) {

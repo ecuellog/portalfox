@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-import { fetchChannels, createChannel } from '../../store/actions/channels';
+import { fetchChannels } from '../../store/actions/channels';
 import Loader from '../Loader/Loader';
 import './PlatformOrgChannels.scss';
 import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
+import ModalDeleteChannel from '../ModalDeleteChannel/ModalDeleteChannel';
 import { Dropdown } from 'react-bootstrap';
 
 function PlatformOrgChannels(props) {
   const [loading, setLoading] = useState(true);
   const [showCreateUpdateModal, setShowCreateUpdateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editChannel, setEditChannel] = useState(false);
   const [channel, setChannel] = useState(null);
 
   function handleCreateUpdateModalClose() {
     setShowCreateUpdateModal(false);
+  }
+
+  function handleDeleteModalClose() {
+    setShowDeleteModal(false);
   }
 
   function handleCreateClick() {
@@ -27,6 +33,11 @@ function PlatformOrgChannels(props) {
     setEditChannel(true);
     setChannel(channel);
     setShowCreateUpdateModal(true);
+  }
+
+  function handleDeleteClick(channel) {
+    setChannel(channel);
+    setShowDeleteModal(true);
   }
 
   useEffect(() => {
@@ -88,7 +99,7 @@ function PlatformOrgChannels(props) {
                                     <i className="far fa-edit position-absolute"></i>
                                     <span className="ml-4">Edit</span>
                                   </Dropdown.Item>
-                                  <Dropdown.Item>
+                                  <Dropdown.Item onClick={() => handleDeleteClick(channel)}>
                                     <i className="far fa-trash-alt position-absolute"></i>
                                     <span className="ml-4">Delete</span>
                                   </Dropdown.Item>
@@ -107,6 +118,11 @@ function PlatformOrgChannels(props) {
                     showModal={showCreateUpdateModal}
                     handleModalClose={handleCreateUpdateModalClose}
                     edit={editChannel}
+                    channel={channel}
+                  />
+                  <ModalDeleteChannel
+                    showModal={showDeleteModal}
+                    handleModalClose={handleDeleteModalClose}
                     channel={channel}
                   />
                 </div>
@@ -128,7 +144,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createChannel: (channelInfo) => dispatch(createChannel(channelInfo)),
     fetchChannels: () => dispatch(fetchChannels())
   }
 }
