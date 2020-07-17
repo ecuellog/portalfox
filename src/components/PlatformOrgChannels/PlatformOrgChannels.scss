@@ -1,1 +1,23 @@
 @import '../../assets/styles/variables.scss';
+
+.Component_PlatformOrgChannels {
+  thead th {
+    border-top: none;
+  }
+
+  td {
+    border-top: none !important;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .dropmenu {
+    float: right;
+    color: darkgrey;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+}

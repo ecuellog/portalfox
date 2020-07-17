@@ -4,9 +4,30 @@ import * as _ from 'lodash';
 import { fetchChannels, createChannel } from '../../store/actions/channels';
 import Loader from '../Loader/Loader';
 import './PlatformOrgChannels.scss';
+import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
+import { Dropdown } from 'react-bootstrap';
 
 function PlatformOrgChannels(props) {
   const [loading, setLoading] = useState(true);
+  const [showCreateUpdateModal, setShowCreateUpdateModal] = useState(false);
+  const [editChannel, setEditChannel] = useState(false);
+  const [channel, setChannel] = useState(null);
+
+  function handleCreateUpdateModalClose() {
+    setShowCreateUpdateModal(false);
+  }
+
+  function handleCreateClick() {
+    setEditChannel(false);
+    setChannel(null);
+    setShowCreateUpdateModal(true);
+  }
+
+  function handleEditClick(channel) {
+    setEditChannel(true);
+    setChannel(channel);
+    setShowCreateUpdateModal(true);
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -20,7 +41,7 @@ function PlatformOrgChannels(props) {
   }, [props.organization]);
 
   return (
-    <div className="p-4">
+    <div className="Component_PlatformOrgChannels p-4">
       <h2 className="mt-3">Channels</h2>
       <hr/>
       {
@@ -40,13 +61,54 @@ function PlatformOrgChannels(props) {
                       No channels, create a new one  below  
                     </div>
                   }
-                  { !!props.channels.length && props.channels.map((channel) => (
-                    <h5>{channel.name}</h5>
-                  ))}
-                  <hr/>
-                  <div className="d-flex justify-content-end">
-                    <button className="btn btn-primary">Create Channel</button>
+                  {
+                    !!props.channels.length && 
+                    <table className="table table-hover">
+                      <thead>
+                        <tr className="d-flex">
+                          <th className="col-3">Name</th>
+                          <th className="col-8">Description</th>
+                          <th className="col-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        { props.channels.map((channel) => (
+                          <tr key={channel.id} className="d-flex">
+                            <td className="col-3 py-3">{channel.name}</td>
+                            <td className="col-8 py-3">{channel.description}</td>
+                            <td className="col-1 py-3">
+                              <Dropdown alignRight>
+                                <Dropdown.Toggle
+                                  as="i"
+                                  className="dropmenu fas fa-ellipsis-v"
+                                >
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                  <Dropdown.Item onClick={() => handleEditClick(channel)}>
+                                    <i className="far fa-edit position-absolute"></i>
+                                    <span className="ml-4">Edit</span>
+                                  </Dropdown.Item>
+                                  <Dropdown.Item>
+                                    <i className="far fa-trash-alt position-absolute"></i>
+                                    <span className="ml-4">Delete</span>
+                                  </Dropdown.Item>
+                                </Dropdown.Menu>
+                              </Dropdown>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  }
+                  <div className="d-flex justify-content-end mt-4">
+                    <button className="btn btn-primary" onClick={handleCreateClick}>Create Channel</button>
                   </div>
+                  <ModalCreateUpdateChannel
+                    showModal={showCreateUpdateModal}
+                    handleModalClose={handleCreateUpdateModalClose}
+                    edit={editChannel}
+                    channel={channel}
+                  />
                 </div>
               </div>
             </div>

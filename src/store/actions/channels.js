@@ -30,8 +30,25 @@ export const createChannel = (channelInfo) => (dispatch, getState) => {
     let orgId = _.get(getState().organizations, 'activeOrganization.id');
     ChannelService.create({...channelInfo, creator: getState().auth.user.uid}, orgId)
       .then((result) => {
-        let newChannels = [...getState().channels.channels, result.data.channels];
+        let newChannels = [...getState().channels.channels, result.data.channel];
         dispatch(setChannels(newChannels));
+        resolve(result.message);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  })
+}
+
+export const updateChannel = (channelId, channelInfo) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    let orgId = _.get(getState().organizations, 'activeOrganization.id');
+    ChannelService.update(channelId, channelInfo, orgId)
+      .then((result) => {
+        let channels = getState().channels.channels;
+        let index = channels.findIndex(channel => channel.id === channelId);
+        channels[index] = result.data.channel;
+        dispatch(setChannels(channels));
         resolve(result.message);
       })
       .catch((error) => {
