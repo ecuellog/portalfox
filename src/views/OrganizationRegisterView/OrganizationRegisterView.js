@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import AuthService from '../../services/auth';
+import * as firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import buildUrl from 'build-url';
-import './OrganizationLoginView.scss';
 import googleLogo from '../../assets/images/google/g-logo.png';
+import AuthService from '../../services/auth';
 import * as _ from 'lodash';
 
-function OrganizationLoginView(props) {
+function OrganizationRegisterView(props) {
   const [creds, setCreds] = useState({
     email: '',
     password:''
@@ -17,7 +17,7 @@ function OrganizationLoginView(props) {
 
   function onSubmit(e) {
     e.preventDefault();
-    AuthService.organizationLogin(creds.email, creds.password, props.organization.id)
+    AuthService.organizationRegister(creds.email, creds.password, props.organization.id)
       .then((res) => {
         console.log(res);
         history.push('/');
@@ -27,12 +27,12 @@ function OrganizationLoginView(props) {
       })
   }
 
-  function redirectToGoogleLogin(e) {
+  function redirectToGoogleRegister(e) {
     e.preventDefault();
     let url = buildUrl('http://lvh.me:4001/orgGoogleAuthRedirect', {
       queryParams: {
         orgId: props.organization.id,
-        authMode: 'login'
+        authMode: 'register'
       }
     });
     window.location.assign(url);
@@ -40,7 +40,7 @@ function OrganizationLoginView(props) {
 
   return (
     <div className="login-register-container d-flex flex-column justify-content-center h-100">
-      <h1 className="text-center mb-5">Log into {_.get(props, 'organization.name')} </h1>
+      <h1 className="text-center mb-5">Register at {_.get(props, 'organization.name')} </h1>
       <form className="mb-0" onSubmit={onSubmit}>
         <div className="form-group">
           <input
@@ -64,15 +64,15 @@ function OrganizationLoginView(props) {
           >
           </input>
         </div>
-        <button type="submit" className="btn btn-primary btn-block">Login</button>
+        <button type="submit" className="btn btn-primary btn-block">Register</button>
       </form>
       <h6 className="py-4 text-center">or</h6>
       <button
         className="btn btn-google"
-        onClick={redirectToGoogleLogin}
+        onClick={redirectToGoogleRegister}
       >
         <img className="google-logo" src={googleLogo}></img>
-        <span>Login with Google</span>
+        <span>Register with Google</span>
       </button>
     </div>
   );
@@ -84,4 +84,4 @@ function mapStateToProps(state) {
   }
 };
 
-export default connect(mapStateToProps, null)(OrganizationLoginView);
+export default connect(mapStateToProps, null)(OrganizationRegisterView);

@@ -13,8 +13,9 @@ import OrganizationLoginView from './views/OrganizationLoginView/OrganizationLog
 import OrganizationMainView from './views/OrganizationMainView';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
-import OrganizationRegisterView from './views/OrganizationRegisterView';
+import OrganizationRegisterView from './views/OrganizationRegisterView/OrganizationRegisterView';
 import OrganizationGoogleAuthReturn from './components/OrganizationGoogleAuthReturn';
+import Loader from './components/Loader/Loader';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
@@ -46,7 +47,7 @@ function OrganizationApp(props) {
       }
       {
         loading && 
-        <h1>Loading...</h1>
+        <Loader/>
       }
       {
         spaceExists && !loading &&

@@ -4,13 +4,13 @@ const config = require('../config.js');
 const admin = require('firebase-admin');
 const axios = require('axios');
 const url = require('url');
+const bcrypt = require('bcrypt');
 
 const clientId = config.gcloud.clientId;
 const client = config.gcloud.client;
 
 // Organization Auth
 router.post('/register', (req, res) => {
-  console.log(req.body);
   // Need to see: Email, password, organizationId
   // TODO: Check for an active invitation to join this space...
 
@@ -42,7 +42,6 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log(req.body);
   // Need to see: Email, password, organizationId
   // TODO: Add validation?
 
@@ -95,6 +94,8 @@ router.get('/googleRegisterRedirect', async (req, res) => {
     res.status(400).json({error: 'Bad request.'});
   }
 
+  let payload = null;
+
   // Get Google OAuth Endpoints from the Discovery API
   axios.get(config.gcloud.discoveryURL)
     .then((discoveryDoc) => {
@@ -113,34 +114,33 @@ router.get('/googleRegisterRedirect', async (req, res) => {
       })
     })
     .then((decodedToken) => {
-      let payload = decodedToken.getPayload();
-      admin.auth().getUser(`${payload.sub}-${organizationId}`)
-        .then(() => {
-          return res.status(403).json({error: 'User already registered. Please log in.'});
-        })
-        .catch((error) => {
-          if(error.code === 'auth/user-not-found') {
-            admin.auth().createCustomToken(`${payload.sub}-${organizationId}`)
-              .then((customToken) => {
-                return res.redirect(url.format({
-                  pathname: `${config.general.clientUrl.protocol}://${organization.subdomain}.${config.general.clientUrl.domain}/googleAuthReturn`,
-                  query: {
-                    token: customToken
-                  }
-                }));
-              })
-              .catch((error) => {
-                return res.status(500).json({error: 'Something went wrong.'})
-              })
-          } else {
-            console.log(error);
-            return res.status(500).json({error: 'Something went wrong.'});
-          }
-        })
+      payload = decodedToken.getPayload();
+      if (organization.owner === payload.sub) {
+        return admin.auth().getUser(`${payload.sub}`);
+      }
+      return admin.auth().getUser(`${payload.sub}-${organizationId}`);
+    })
+    .then(() => {
+      return res.status(403).json({error: 'User already registered. Please log in.'});
     })
     .catch((error) => {
-      console.log(error);
-      return res.status(403).json({error: 'Invalid token'});
+      if(error.code === 'auth/user-not-found') {
+        admin.auth().createCustomToken(`${payload.sub}-${organizationId}`)
+          .then((customToken) => {
+            return res.redirect(url.format({
+              pathname: `${config.general.clientUrl.protocol}://${organization.subdomain}.${config.general.clientUrl.domain}/googleAuthReturn`,
+              query: {
+                token: customToken
+              }
+            }));
+          })
+          .catch((error) => {
+            return res.status(500).json({error: 'Something went wrong.'})
+          })
+      } else {
+        console.log(error);
+        return res.status(500).json({error: 'Something went wrong.'});
+      }
     })
 });
 
@@ -181,6 +181,9 @@ router.get('/googleLoginRedirect', async (req, res) => {
     })
     .then((decodedToken) => {
       let payload = decodedToken.getPayload();
+      if (organization.owner === payload.sub) {
+        return admin.auth().getUser(`${payload.sub}`);
+      }
       return admin.auth().getUser(`${payload.sub}-${organizationId}`)
     })
     .then((userRecord) => {
