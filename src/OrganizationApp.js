@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
@@ -65,7 +66,11 @@ function OrganizationApp(props) {
               <OrganizationRegisterView />
             </WrapperAntiPrivateRoute>
             
-            <WrapperPrivateRoute path="/">
+            <WrapperPrivateRoute path="/" exact>
+              <Redirect to="/channels/all"/>
+            </WrapperPrivateRoute>
+
+            <WrapperPrivateRoute path="/channels/:channelId">
               <OrganizationMainView />
             </WrapperPrivateRoute>
           </Switch>

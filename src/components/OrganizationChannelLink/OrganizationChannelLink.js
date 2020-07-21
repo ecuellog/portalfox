@@ -8,6 +8,7 @@ import './OrganizationChannelLink.scss';
 function OrganizationChannelLink(props) {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   function handleUpdateModalClose() {
     setShowUpdateModal(false);
@@ -27,8 +28,9 @@ function OrganizationChannelLink(props) {
     setShowDeleteModal(true);
   }
 
-  function onToggleDropdown(e) {
-    e.preventDefault();
+  function onToggleDropdown(isOpen, e) {
+    if (e) e.preventDefault();
+   setShowDropdown(isOpen);
   }
 
   return (
@@ -38,10 +40,11 @@ function OrganizationChannelLink(props) {
         key={props.channel.id}
         activeClassName="active"
         to={`/channels/:props.channel.id`}
+        onMouseLeave={() => setShowDropdown(false)}
       >
         # {props.channel.name}
-        <div onClick={onToggleDropdown}>
-          <Dropdown alignRight>
+        <div>
+          <Dropdown alignRight show={showDropdown} onToggle={onToggleDropdown}>
             <Dropdown.Toggle
               as="i"
               className="dropmenu-icon fas fa-ellipsis-v"
