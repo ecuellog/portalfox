@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import AuthService from '../services/auth';
 import googleLogo from '../assets/images/google/g-logo.png';
@@ -56,10 +55,4 @@ function BtnGoogleLogin(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    organizationId: state.auth.organizationId
-  }
-};
-
-export default connect(mapStateToProps, null)(BtnGoogleLogin);
+export default BtnGoogleLogin;

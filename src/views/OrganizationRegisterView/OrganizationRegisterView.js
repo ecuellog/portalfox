@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import * as firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 import buildUrl from 'build-url';
@@ -80,7 +79,7 @@ function OrganizationRegisterView(props) {
 
 function mapStateToProps(state) {
   return {
-    organization: state.auth.organization
+    organization: state.organizations.activeOrganization
   }
 };
 

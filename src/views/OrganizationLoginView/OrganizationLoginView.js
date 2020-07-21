@@ -80,7 +80,7 @@ function OrganizationLoginView(props) {
 
 function mapStateToProps(state) {
   return {
-    organization: state.auth.organization
+    organization: state.organizations.activeOrganization
   }
 };
 

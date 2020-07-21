@@ -91,7 +91,7 @@ function PlatformOrgChannels(props) {
                               <Dropdown alignRight>
                                 <Dropdown.Toggle
                                   as="i"
-                                  className="dropmenu fas fa-ellipsis-v"
+                                  className="dropmenu-icon fas fa-ellipsis-v"
                                 >
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>

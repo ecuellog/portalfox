@@ -1,0 +1,23 @@
+.Component_OrganizationChannelLink {
+  .link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    /*&:hover {
+      .dropmenu-icon {
+        display: block;
+      }
+    }*/
+  }
+
+  .dropmenu-icon {
+    //display: none;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+}

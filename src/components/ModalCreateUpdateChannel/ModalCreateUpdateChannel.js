@@ -21,7 +21,7 @@ function ModalCreateUpdateChannel(props) {
     } else {
       resetForm();
     }
-  }, [props.channel]);
+  }, [props.channel, props.showModal]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -36,7 +36,6 @@ function ModalCreateUpdateChannel(props) {
     promise
       .then((msg) => {
         alert(msg);
-        resetForm();
         props.handleModalClose();
       })
       .catch((error) => {
@@ -46,7 +45,6 @@ function ModalCreateUpdateChannel(props) {
 
   function onCancel(e) {
     if(e) e.preventDefault();
-    resetForm();
     props.handleModalClose();
   }
 

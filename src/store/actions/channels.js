@@ -45,7 +45,7 @@ export const updateChannel = (channelId, channelInfo) => (dispatch, getState) =>
     let orgId = _.get(getState().organizations, 'activeOrganization.id');
     ChannelService.update(channelId, channelInfo, orgId)
       .then((result) => {
-        let channels = getState().channels.channels;
+        let channels = [...getState().channels.channels];
         let index = channels.findIndex(channel => channel.id === channelId);
         channels[index] = result.data.channel;
         dispatch(setChannels(channels));
