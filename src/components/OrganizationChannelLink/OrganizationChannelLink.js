@@ -39,7 +39,7 @@ function OrganizationChannelLink(props) {
         className="link"
         key={props.channel.id}
         activeClassName="active"
-        to={`/channels/:props.channel.id`}
+        to={`/channels/${props.channel.id}`}
         onMouseLeave={() => setShowDropdown(false)}
       >
         # {props.channel.name}

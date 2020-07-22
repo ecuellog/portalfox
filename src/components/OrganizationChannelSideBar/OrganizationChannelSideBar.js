@@ -17,18 +17,23 @@ function OrganizationChannelSideBar(props) {
 
   return (
     <>
-    <h4 className="p-2">Channels</h4>
-    { props.channels.map(channel => (
-      <OrganizationChannelLink key={channel.id} channel={channel} />
-    ))}
-    <div className="p-3 clickable" onClick={() => setShowCreateModal(true)}>
-      + Add Channel
-    </div>
-    <ModalCreateUpdateChannel
-      showModal={showCreateModal}
-      handleModalClose={() => setShowCreateModal(false)}
-      edit={false}
-    />
+      <h4 className="p-2">Channels</h4>
+      <NavLink
+        className="link"
+        activeClassName="active"
+        to="/channels/all"
+      >All Channels</NavLink>
+      { props.channels.map(channel => (
+        <OrganizationChannelLink key={channel.id} channel={channel} />
+      ))}
+      <div className="p-3 clickable" onClick={() => setShowCreateModal(true)}>
+        + Add Channel
+      </div>
+      <ModalCreateUpdateChannel
+        showModal={showCreateModal}
+        handleModalClose={() => setShowCreateModal(false)}
+        edit={false}
+      />
     </>
   );
 }

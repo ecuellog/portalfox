@@ -11,7 +11,7 @@ import { setActiveOrganization } from './store/actions/organizations';
 import NotFoundView from './views/NotFoundView';
 import OrganizationService from './services/firebase/organizations';
 import OrganizationLoginView from './views/OrganizationLoginView/OrganizationLoginView';
-import OrganizationMainView from './views/OrganizationMainView/OrganizationMainView';
+import OrganizationChannelView from './views/OrganizationChannelView/OrganizationChannelView';
 import WrapperPrivateRoute from './components/WrapperPrivateRoute';
 import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 import OrganizationRegisterView from './views/OrganizationRegisterView/OrganizationRegisterView';
@@ -71,7 +71,7 @@ function OrganizationApp(props) {
             </WrapperPrivateRoute>
 
             <WrapperPrivateRoute path="/channels/:channelId">
-              <OrganizationMainView />
+              <OrganizationChannelView />
             </WrapperPrivateRoute>
           </Switch>
         </Router>

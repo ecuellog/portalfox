@@ -2,12 +2,20 @@ import ChannelService from "../../services/firebase/channels";
 import * as _ from 'lodash';
 
 export const SET_CHANNELS = 'SET_CHANNELS';
+export const SET_ACTIVE_CHANNELS = 'SET_ACTIVE_CHANNELS';
 
 // Basic
 export function setChannels(channels) {
   return {
     type: SET_CHANNELS, 
     channels
+  }
+}
+
+export function setActiveChannel(channel) {
+  return {
+    type: SET_ACTIVE_CHANNELS, 
+    channel
   }
 }
 

@@ -1,9 +1,11 @@
 import {
-  SET_CHANNELS
+  SET_CHANNELS,
+  SET_ACTIVE_CHANNELS
 } from '../actions/channels';
 
 var defaultState = {
   channels: [],
+  activeChannel: null
 }
 
 const channels = (state = defaultState, action) => {
@@ -12,6 +14,11 @@ const channels = (state = defaultState, action) => {
       return {
         ...state,
         channels: action.channels
+      };
+    case SET_ACTIVE_CHANNELS:
+      return {
+        ...state,
+        activeChannel: action.channel
       };
     default:
       return state;
