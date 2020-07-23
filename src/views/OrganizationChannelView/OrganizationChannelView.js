@@ -23,7 +23,7 @@ function OrganizationChannelView(props) {
 
   return (
     <WrapperSideBar sidebar={<OrganizationChannelSideBar/>}>
-      <div className="p-4">
+      <div className="container-fluid p-4">
         { channelId !== 'all' &&
           <>
             <h2>{_.get(props.channel, 'name')}</h2>
@@ -34,8 +34,13 @@ function OrganizationChannelView(props) {
           <h2>All Channels</h2>
         }
         <hr/>
-        <div>
-          <OrganizationArticleTiles channelId={channelId}/>
+        <div className="row no-gutters">
+          <div className="col-lg-8">
+            <OrganizationArticleTiles channelId={channelId}/>
+          </div>
+          <div className="col-lg-4">
+            asdf 
+          </div>
         </div>
       </div>
     </WrapperSideBar>

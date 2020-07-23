@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchChannelArticles, fetchAllArticles } from '../../store/actions/articles';
 import * as _ from 'lodash';
-import blogImg from '../../assets/images/blogimgsample.jpg';
 import './OrganizationArticleTiles.scss';
+import OrganizationArticleTileHorizontal from '../OrganizationArticleTileHorizontal/OrganizationArticleTileHorizontal';
+import OrganizationArticleTileVertical from '../OrganizationArticleTileVertical/OrganizationArticleTileVertical';
 
 function OrganizationArticleTiles(props) {
   useEffect(() => {
@@ -25,17 +26,16 @@ function OrganizationArticleTiles(props) {
 
   return (
     <div className="Component_OrganizationArticleTiles">
-      { props.articles.map((article) => 
-        <div key={article.id} className="card card-body d-flex flex-row">
-          <div className="img-container">
-            <img src={blogImg}></img>
+      { props.articles.length > 0 && 
+        <OrganizationArticleTileHorizontal article={props.articles[0]} />
+      }
+      <div className="row no-gutters">
+        { props.articles.slice(1).map((article) => 
+          <div key={article.id} className="col-md-6">
+            <OrganizationArticleTileVertical article={article} />
           </div>
-          <div className="mx-5">
-            <h1 className="my-3">{article.title}</h1>
-            <p className="my-3">{article.subtitle}</p>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
