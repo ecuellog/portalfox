@@ -17,6 +17,7 @@ import WrapperAntiPrivateRoute from './components/WrapperAntiPrivateRoute';
 import OrganizationRegisterView from './views/OrganizationRegisterView/OrganizationRegisterView';
 import OrganizationGoogleAuthReturn from './components/OrganizationGoogleAuthReturn';
 import Loader from './components/Loader/Loader';
+import OrganizationArticleNewView from './views/OrganizationArticleNewView/OrganizationArticleNewView';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
@@ -70,8 +71,12 @@ function OrganizationApp(props) {
               <Redirect to="/channels/all"/>
             </WrapperPrivateRoute>
 
-            <WrapperPrivateRoute path="/channels/:channelId">
+            <WrapperPrivateRoute path="/channels/:channelId" exact>
               <OrganizationChannelView />
+            </WrapperPrivateRoute>
+
+            <WrapperPrivateRoute path="/channels/:channelId/articles/new">
+              <OrganizationArticleNewView />
             </WrapperPrivateRoute>
           </Switch>
         </Router>

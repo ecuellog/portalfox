@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { NavLink, useLocation, Redirect } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
@@ -9,6 +10,8 @@ function OrganizationChannelLink(props) {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  let history = useHistory();
 
   function handleUpdateModalClose() {
     setShowUpdateModal(false);
@@ -33,6 +36,10 @@ function OrganizationChannelLink(props) {
    setShowDropdown(isOpen);
   }
 
+  function onClickCreateArticle () {
+    history.push(`/channels/${props.channel.id}/articles/new`);
+  }
+
   return (
     <div className="Component_OrganizationChannelLink">
       <NavLink
@@ -51,13 +58,17 @@ function OrganizationChannelLink(props) {
             >
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              <Dropdown.Item as="div" onClick={onClickCreateArticle}>
+                <i className="fas fa-pen-fancy position-absolute"></i>
+                <span className="ml-4">Create Article</span>
+              </Dropdown.Item>  
               <Dropdown.Item as="div" onClick={handleEditClick}>
                 <i className="far fa-edit position-absolute"></i>
-                <span className="ml-4">Edit</span>
+                <span className="ml-4">Edit Channel</span>
               </Dropdown.Item>
               <Dropdown.Item as="div" onClick={handleDeleteClick}>
                 <i className="far fa-trash-alt position-absolute"></i>
-                <span className="ml-4">Delete</span>
+                <span className="ml-4">Delete Channel</span>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
