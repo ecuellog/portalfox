@@ -6,6 +6,7 @@ import { setActiveChannel } from '../../store/actions/channels';
 import OrganizationChannelSideBar from '../../components/OrganizationChannelSideBar/OrganizationChannelSideBar';
 import * as _ from 'lodash';
 import OrganizationArticleTiles from '../../components/OrganizationArticleTiles/OrganizationArticleTiles';
+import OrganizationEventsTile from '../../components/OrganizationEventsTile/OrganizationEventsTile';
 
 function OrganizationChannelView(props) {
   const [channelId, setChannelId] = useState(null);
@@ -38,8 +39,9 @@ function OrganizationChannelView(props) {
           <div className="col-lg-8">
             <OrganizationArticleTiles channelId={channelId}/>
           </div>
-          <div className="col-lg-4">
-            asdf 
+          <div className="col-lg-4 pl-3">
+            <OrganizationEventsTile titleTodoChangeThis='Events'/>
+            <OrganizationEventsTile titleTodoChangeThis='Celebrations'/>
           </div>
         </div>
       </div>
