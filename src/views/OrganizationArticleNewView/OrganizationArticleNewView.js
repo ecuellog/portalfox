@@ -1,9 +1,11 @@
 import React, {useState, useRef} from 'react';
+import {PassiveListener} from 'react-event-injector';
 import { useHistory, withRouter } from 'react-router-dom';
 import JoditEditor from "jodit-react";
 import { connect } from 'react-redux';
 import './OrganizationArticleNewView.scss';
 import { createArticle } from '../../store/actions/articles';
+import WrapperJoditEditor from '../../components/WrapperJoditEditor/WrapperJoditEditor';
 
 function OrganizationArticleNewView (props) {
   let history = useHistory();
@@ -44,6 +46,13 @@ function OrganizationArticleNewView (props) {
         alert(error);
       })
   }
+
+  function handleTitleInput(e) {
+    //e.preventDefault();
+    //e.stopPropagation();
+    //e.nativeEvent.stopImmediatePropagation();
+    setTitle(e.target.value);
+  }
 	
 	return (
     <div className="Component_OrganizationArticleNewView container py-5">
@@ -54,13 +63,15 @@ function OrganizationArticleNewView (props) {
       <h2 className="mt-5 mb-4">Create Article</h2>
       <form onSubmit={onSubmit}>
         <label htmlFor="title">Title</label>
-        <input  
-          type="text"
-          name="title"
-          className="title-input"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        ></input>
+        <PassiveListener>
+          <input  
+            type="text"
+            name="title"
+            className="title-input"
+            value={title}
+            onChange={handleTitleInput}
+          ></input>
+        </PassiveListener>
         <label htmlFor="summary" className="mt-4">Summary</label>
         <textarea
           name="summary"
@@ -68,11 +79,7 @@ function OrganizationArticleNewView (props) {
           onChange={e => setSummary(e.target.value)}
         ></textarea>
         <label className="mt-4">Content</label>
-        <JoditEditor
-          value={content}
-          config={config}
-          onBlur={newContent => setContent(newContent)}
-        />
+        <WrapperJoditEditor/>
         <div className="d-flex justify-content-center mt-5">
           <button className="btn btn-blank" type="button" onClick={goBack}> Cancel </button>
           <button className="btn btn-primary"> Save </button>
