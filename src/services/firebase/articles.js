@@ -50,4 +50,31 @@ export default class ArticleService {
         });
     });
   }
+
+  static create(orgId, channelId, articleInfo) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+      
+      const orgRef = db.collection('organizations').doc(orgId);
+      const channelRef = orgRef.collection('channels').doc(channelId);
+      const articleRef = channelRef.collection('articles').doc();
+      
+      articleRef.set(articleInfo)
+        .then(() => {
+          resolve({
+            message: `Article has been successfully created.`,
+            data: {
+              article: {
+                ...articleInfo,
+                id: articleRef.id
+              }
+            }
+          }); 
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(`There was an error creating the article.`);
+        });
+    });
+  }
 }
