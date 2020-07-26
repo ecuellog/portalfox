@@ -10,7 +10,7 @@ function OrganizationArticleTileVertical(props) {
       </div>
       <div className="mt-3">
         <h3 className="my-3">{props.article.title}</h3>
-        <p className="my-3">{props.article.subtitle}</p>
+        <p className="my-3">{props.article.summary}</p>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ function OrganizationArticleTileHorizontal(props) {
       </div>
       <div className="mx-5">
         <h2 className="my-3">{props.article.title}</h2>
-        <p className="my-3">{props.article.subtitle}</p>
+        <p className="my-3">{props.article.summary}</p>
       </div>
     </div>
   );

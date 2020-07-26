@@ -43,7 +43,7 @@ export const fetchAllArticles = () => (dispatch, getState) => {
 export const createArticle = (channelId, articleInfo) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     let orgId = _.get(getState().organizations, 'activeOrganization.id');
-    articleService.create(orgId, channelId, {...articleInfo, creator: getState().auth.user.uid})
+    ArticleService.create(orgId, channelId, {...articleInfo, creator: getState().auth.user.uid})
       .then((result) => {
         let newArticles = [...getState().articles.articles, result.data.article];
         dispatch(setArticles(newArticles));

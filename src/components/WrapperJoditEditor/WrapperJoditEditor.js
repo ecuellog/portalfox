@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 import JoditEditor from "jodit-react";
-import { pure } from 'recompose';
 
-function WrapperJoditEditor (props) {
-  const [content, setContent] = useState('');
+function WrapperJoditEditor(props) {
   const config = {
     readonly: false,
     uploader: {
@@ -14,12 +12,15 @@ function WrapperJoditEditor (props) {
 
 	return (
     <JoditEditor
-      value={content}
+      value={props.value}
       config={config}
-      onBlur={newContent => setContent(newContent)}
-      onChange={newContent => console.log(newContent)}
+      onBlur={props.onBlur}
     />
   );
 }
 
-export default pure(WrapperJoditEditor);
+function arePropsEqual(prevProps, nextProps) {
+  return prevProps.value === nextProps.value; 
+}
+
+export default memo(WrapperJoditEditor, arePropsEqual);

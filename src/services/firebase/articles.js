@@ -59,7 +59,7 @@ export default class ArticleService {
       const channelRef = orgRef.collection('channels').doc(channelId);
       const articleRef = channelRef.collection('articles').doc();
       
-      articleRef.set(articleInfo)
+      articleRef.set({...articleInfo, organizationId: orgId})
         .then(() => {
           resolve({
             message: `Article has been successfully created.`,
