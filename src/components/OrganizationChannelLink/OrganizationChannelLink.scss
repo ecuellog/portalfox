@@ -17,6 +17,16 @@
     padding: 0 5px;
   }
 
+  .dropdown-item {
+    position: relative;
+  }
+  
+  .dropdown-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   .dropdown-toggle::after {
     display: none;
   }

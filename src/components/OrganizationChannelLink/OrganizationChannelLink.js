@@ -59,15 +59,15 @@ function OrganizationChannelLink(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item as="div" onClick={onClickCreateArticle}>
-                <i className="fas fa-pen-fancy position-absolute"></i>
+                <i className="dropdown-icon fas fa-pen-fancy"></i>
                 <span className="ml-4">Create Article</span>
               </Dropdown.Item>  
               <Dropdown.Item as="div" onClick={handleEditClick}>
-                <i className="far fa-edit position-absolute"></i>
+                <i className="dropdown-icon far fa-edit"></i>
                 <span className="ml-4">Edit Channel</span>
               </Dropdown.Item>
               <Dropdown.Item as="div" onClick={handleDeleteClick}>
-                <i className="far fa-trash-alt position-absolute"></i>
+                <i className="dropdown-icon far fa-trash-alt"></i>
                 <span className="ml-4">Delete Channel</span>
               </Dropdown.Item>
             </Dropdown.Menu>
