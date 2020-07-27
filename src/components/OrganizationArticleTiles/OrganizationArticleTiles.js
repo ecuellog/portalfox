@@ -30,11 +30,20 @@ function OrganizationArticleTiles(props) {
         <OrganizationArticleTileHorizontal article={props.articles[0]} />
       }
       <div className="row no-gutters">
-        { props.articles.slice(1).map((article) => 
-          <div key={article.id} className="col-md-6">
-            <OrganizationArticleTileVertical article={article} />
-          </div>
-        )}
+        <div className="col-md-6 pr-2">
+          { props.articles.slice(1).filter((article, index) => index % 2 === 0).map((article) => 
+            <div key={article.id}>
+              <OrganizationArticleTileVertical article={article} />
+            </div>
+          )}
+        </div>
+        <div className="col-md-6 pl-2">
+          { props.articles.slice(1).filter((article, index) => index % 2 !== 0).map((article) => 
+            <div key={article.id}>
+              <OrganizationArticleTileVertical article={article} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
