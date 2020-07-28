@@ -51,6 +51,11 @@ function OrganizationArticleNewView (props) {
     reader.readAsBinaryString(file);
   }
 
+  function resetImage() {
+    setMainImage(null);
+    setImageBinary(null);
+  }
+
 	return (
     <div className="Component_OrganizationArticleNewView container py-5">
       <button className="btn btn-blank btn-back" onClick={goBack}>
@@ -63,7 +68,10 @@ function OrganizationArticleNewView (props) {
         <ImageDropzone className="mb-4" onDrop={onDrop}/>
       }
       { mainImage !== null &&
-          <img src={`data:image/*;base64,${btoa(imageBinary)}`}></img>
+        <div className="container-main-img position-relative">
+          <i className="delete-icon fa fa-times" onClick={resetImage}></i>
+          <img src={`data:image/*;base64,${btoa(imageBinary)}`} className="main-img mb-4"></img>
+        </div>
       }
       <form onSubmit={onSubmit}>
         <label htmlFor="title">Title</label>
