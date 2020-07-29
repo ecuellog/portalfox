@@ -2,12 +2,20 @@ import ArticleService from "../../services/firebase/articles";
 import * as _ from 'lodash';
 
 export const SET_ARTICLES = 'SET_ARTICLES';
+export const SET_ACTIVE_ARTICLE = 'SET_ACTIVE_ARTICLE';
 
 // Basic
 export function setArticles(articles) {
   return {
     type: SET_ARTICLES, 
     articles
+  }
+}
+
+export function setActiveArticle(article) {
+  return {
+    type: SET_ACTIVE_ARTICLE,
+    article
   }
 }
 
@@ -47,6 +55,20 @@ export const createArticle = (channelId, articleInfo) => (dispatch, getState) =>
       .then((result) => {
         let newArticles = [...getState().articles.articles, result.data.article];
         dispatch(setArticles(newArticles));
+        resolve(result.message);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  })
+}
+
+export const fetchArticle = (channelId, articleId) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    let orgId = _.get(getState().organizations, 'activeOrganization.id');
+    ArticleService.fetch(orgId, channelId, articleId)
+      .then((result) => {
+        dispatch(setActiveArticle(result.data.article));
         resolve(result.message);
       })
       .catch((error) => {

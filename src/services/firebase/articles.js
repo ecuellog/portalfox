@@ -59,7 +59,7 @@ export default class ArticleService {
       const channelRef = orgRef.collection('channels').doc(channelId);
       const articleRef = channelRef.collection('articles').doc();
       
-      articleRef.set({...articleInfo, organizationId: orgId})
+      articleRef.set({...articleInfo, organizationId: orgId, channelId: channelId})
         .then(() => {
           resolve({
             message: `Article has been successfully created.`,
@@ -74,6 +74,37 @@ export default class ArticleService {
         .catch((error) => {
           console.error(error);
           reject(`There was an error creating the article.`);
+        });
+    });
+  }
+
+  static fetch(orgId, channelId, articleId) {
+    return new Promise((resolve, reject) => {
+      const db = firebase.firestore();
+
+      console.log(orgId);
+      console.log(articleId);
+      
+      const orgRef = db.collection('organizations').doc(orgId);
+      const channelRef = orgRef.collection('channels').doc(channelId);
+      const articleRef = channelRef.collection('articles').doc(articleId);
+      
+      articleRef.get()
+        .then((doc) => {
+          if (!doc.exists) {
+            resolve(null);
+          } else {
+            resolve({
+              message: `Article has been fetched.`,
+              data: {
+                article: doc.data() 
+              }
+            }); 
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(`There was an error fetching the article.`);
         });
     });
   }

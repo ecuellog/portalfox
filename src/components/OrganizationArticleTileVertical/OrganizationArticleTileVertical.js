@@ -1,9 +1,13 @@
 import React from 'react';
 import './OrganizationArticleTileVertical.scss';
+import { NavLink } from 'react-router-dom';
 
 function OrganizationArticleTileVertical(props) {
   return (
-    <div className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column my-3">
+    <NavLink
+      to={`/channels/${props.article.channelId}/articles/${props.article.id}`}
+      className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column my-3"
+    >
       <div className="img-container">
         <img src={props.article.imageSrc}></img>
       </div>
@@ -11,7 +15,7 @@ function OrganizationArticleTileVertical(props) {
         <h3 className="my-3">{props.article.title}</h3>
         <p className="my-3">{props.article.summary}</p>
       </div>
-    </div>
+    </NavLink>
   );
 }
 
