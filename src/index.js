@@ -10,6 +10,7 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
+import 'firebase/storage';
 
 // Firebase configuration
 var firebaseConfig = {
@@ -27,6 +28,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 firebase.firestore();
+firebase.storage();
 
 // Redux store config
 const store = createStore(rootReducer,

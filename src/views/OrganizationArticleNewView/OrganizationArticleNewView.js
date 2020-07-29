@@ -5,6 +5,8 @@ import './OrganizationArticleNewView.scss';
 import { createArticle } from '../../store/actions/articles';
 import WrapperJoditEditor from '../../components/WrapperJoditEditor/WrapperJoditEditor';
 import ImageDropzone from '../../components/ImageDropzone/ImageDropzone'; 
+import { v4 as uuidv4 } from 'uuid';
+import * as firebase from "firebase/app";
 
 function OrganizationArticleNewView (props) {
   let history = useHistory();
@@ -27,14 +29,23 @@ function OrganizationArticleNewView (props) {
     e.preventDefault();
     let channelId = props.match.params.channelId;
 
-    props.createArticle(channelId, {...articleInfo, content})
-      .then((message) => {
-        alert(message);
-        goBack();
-      })
-      .catch((error) => {
-        alert(error);
-      })
+    let imageId = uuidv4();
+
+    let storageRef = firebase.storage().ref();
+    let articleImgsRef = storageRef.child(`articleImages/${imageId}`);
+    articleImgsRef.put(mainImage).then((snapshot) => {
+      console.log(snapshot);
+      articleImgsRef.getDownloadURL().then((url) => {
+        props.createArticle(channelId, {...articleInfo, content, imageSrc: url})
+          .then((message) => {
+            alert(message);
+            goBack();
+          })
+          .catch((error) => {
+            alert(error);
+          })
+      });
+    });
   }
 
   function onDrop(file) {
@@ -45,7 +56,6 @@ function OrganizationArticleNewView (props) {
       const binResult = reader.result;
       setImageBinary(binResult);
       setMainImage(file);
-      console.log(binResult);
     };
     
     reader.readAsBinaryString(file);
