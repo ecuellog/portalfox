@@ -1,5 +1,4 @@
 import React from 'react';
-import blogImg from '../../assets/images/blogimgsample.jpg';
 import './OrganizationArticleTileHorizontal.scss';
 
 function OrganizationArticleTileHorizontal(props) {

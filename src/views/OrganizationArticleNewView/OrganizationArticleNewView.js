@@ -28,13 +28,12 @@ function OrganizationArticleNewView (props) {
   function onSubmit(e) {
     e.preventDefault();
     let channelId = props.match.params.channelId;
-
     let imageId = uuidv4();
 
     let storageRef = firebase.storage().ref();
     let articleImgsRef = storageRef.child(`articleImages/${imageId}`);
+    
     articleImgsRef.put(mainImage).then((snapshot) => {
-      console.log(snapshot);
       articleImgsRef.getDownloadURL().then((url) => {
         props.createArticle(channelId, {...articleInfo, content, imageSrc: url})
           .then((message) => {

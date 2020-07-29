@@ -1,5 +1,4 @@
 import React from 'react';
-import blogImg from '../../assets/images/blogimgsample.jpg';
 import './OrganizationArticleTileVertical.scss';
 
 function OrganizationArticleTileVertical(props) {
