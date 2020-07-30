@@ -42,11 +42,14 @@ function OrganizationArticleView (props) {
             <i className="fas fa-chevron-left"></i>
             Back
           </button>
+          <h1 className="mt-5 mb-3 text-center">{props.article.title}</h1>
           <div className="container-main-img">
             <img src={props.article.imageSrc} className="main-img mb-4"></img>
           </div>
-          <h2>{props.article.title}</h2>
-          <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.article.content)}}></div>
+          <div
+            className="mt-5"
+            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.article.content)}}
+          ></div>
         </div>
       }
       { props.article === null && 
