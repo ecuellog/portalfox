@@ -5,6 +5,7 @@ import './OrganizationArticleView.scss';
 import { fetchArticle, setActiveArticle } from '../../store/actions/articles';
 import Loader from '../../components/Loader/Loader';
 import DOMPurify from 'dompurify';
+import OrganizationNavBar from '../../components/OrganizationNavBar/OrganizationNavBar';
 
 function OrganizationArticleView (props) {
   let history = useHistory();
@@ -35,26 +36,29 @@ function OrganizationArticleView (props) {
   }
 
 	return (
-    <div>
-      { props.article !== null && 
-        <div className="Component_OrganizationArticleView container py-5">
-          <button className="btn btn-blank btn-back" onClick={goBack}>
-            <i className="fas fa-chevron-left"></i>
-            Back
-          </button>
-          <h1 className="mt-5 mb-3 text-center">{props.article.title}</h1>
-          <div className="container-main-img">
-            <img src={props.article.imageSrc} className="main-img mb-4"></img>
+    <div className="Component_OrganizationArticleView">
+      <OrganizationNavBar/>
+      <div>
+        { props.article !== null && 
+          <div className="container py-4">
+            <button className="btn btn-blank btn-back" onClick={goBack}>
+              <i className="fas fa-chevron-left"></i>
+              Back
+            </button>
+            <h1 className="mt-5 mb-3 text-center">{props.article.title}</h1>
+            <div className="container-main-img">
+              <img src={props.article.imageSrc} className="main-img mb-4"></img>
+            </div>
+            <div
+              className="mt-5"
+              dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.article.content)}}
+            ></div>
           </div>
-          <div
-            className="mt-5"
-            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.article.content)}}
-          ></div>
-        </div>
-      }
-      { props.article === null && 
-        <Loader/>
-      }
+        }
+        { props.article === null && 
+          <Loader/>
+        }
+      </div>
     </div>
   );
 }

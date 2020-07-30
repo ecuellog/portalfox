@@ -7,6 +7,7 @@ import WrapperJoditEditor from '../../components/WrapperJoditEditor/WrapperJodit
 import ImageDropzone from '../../components/ImageDropzone/ImageDropzone'; 
 import { v4 as uuidv4 } from 'uuid';
 import * as firebase from "firebase/app";
+import OrganizationNavBar from '../../components/OrganizationNavBar/OrganizationNavBar';
 
 function OrganizationArticleNewView (props) {
   let history = useHistory();
@@ -66,48 +67,51 @@ function OrganizationArticleNewView (props) {
   }
 
 	return (
-    <div className="Component_OrganizationArticleNewView container py-5">
-      <button className="btn btn-blank btn-back" onClick={goBack}>
-        <i className="fas fa-chevron-left"></i>
-        Back
-      </button>
-      <h2 className="mt-5 mb-4">Create Article</h2>
-      <label>Main Image</label>
-      { mainImage === null && 
-        <ImageDropzone className="mb-4" onDrop={onDrop}/>
-      }
-      { mainImage !== null &&
-        <div className="container-main-img position-relative">
-          <i className="delete-icon fa fa-times" onClick={resetImage}></i>
-          <img src={`data:image/*;base64,${btoa(imageBinary)}`} className="main-img mb-4"></img>
-        </div>
-      }
-      <form onSubmit={onSubmit}>
-        <label htmlFor="title">Title</label>
-        <input  
-          type="text"
-          name="title"
-          className="title-input"
-          value={articleInfo.title}
-          onChange={e => setArticleInfo({...articleInfo, title: e.target.value})}
-        ></input>
-        <label htmlFor="summary" className="mt-4">Summary</label>
-        <textarea
-          name="summary"
-          value={articleInfo.summary}
-          onChange={e => setArticleInfo({...articleInfo, summary: e.target.value})}
-        ></textarea>
-        <label className="mt-4">Content</label>
-        <WrapperJoditEditor
-          value={content}
-          onBlur={content => setContent(content)}
-          tabIndex={4}
-        />
-        <div className="d-flex justify-content-center mt-5">
-          <button className="btn btn-blank" type="button" onClick={goBack}> Cancel </button>
-          <button className="btn btn-primary"> Save </button>
-        </div>
-      </form>
+    <div className="Component_OrganizationArticleNewView">
+      <OrganizationNavBar/>
+      <div className="container py-4">
+        <button className="btn btn-blank btn-back" onClick={goBack}>
+          <i className="fas fa-chevron-left"></i>
+          Back
+        </button>
+        <h2 className="mt-5 mb-4">Create Article</h2>
+        <label>Main Image</label>
+        { mainImage === null && 
+          <ImageDropzone className="mb-4" onDrop={onDrop}/>
+        }
+        { mainImage !== null &&
+          <div className="container-main-img position-relative">
+            <i className="delete-icon fa fa-times" onClick={resetImage}></i>
+            <img src={`data:image/*;base64,${btoa(imageBinary)}`} className="main-img mb-4"></img>
+          </div>
+        }
+        <form onSubmit={onSubmit}>
+          <label htmlFor="title">Title</label>
+          <input  
+            type="text"
+            name="title"
+            className="title-input"
+            value={articleInfo.title}
+            onChange={e => setArticleInfo({...articleInfo, title: e.target.value})}
+          ></input>
+          <label htmlFor="summary" className="mt-4">Summary</label>
+          <textarea
+            name="summary"
+            value={articleInfo.summary}
+            onChange={e => setArticleInfo({...articleInfo, summary: e.target.value})}
+          ></textarea>
+          <label className="mt-4">Content</label>
+          <WrapperJoditEditor
+            value={content}
+            onBlur={content => setContent(content)}
+            tabIndex={4}
+          />
+          <div className="d-flex justify-content-center mt-5">
+            <button className="btn btn-blank" type="button" onClick={goBack}> Cancel </button>
+            <button className="btn btn-primary"> Save </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

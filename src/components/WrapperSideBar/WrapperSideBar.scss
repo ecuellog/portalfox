@@ -1,15 +1,24 @@
 @import '../../assets/styles/variables.scss';
 
 .Component_WrapperSideBar {
+  &.with-navbar {
+    margin-top: $sidebar-height;
+  }
+
   .sidebar-container {
-    min-width: 260px;
-    width: 260px;
+    position: fixed;
+    min-width: $sidebar-width;
+    width: $sidebar-width;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     height: 100%;
-    box-shadow: 2px 0px 7px 0px #00000024;
+    border-right: solid 1px #e4e4e4;
     padding: 12px;
+
+    &.with-navbar  {
+      min-height: calc(100vh - $sidebar-height);
+    }
 
     hr {
       height: 1px;
@@ -36,6 +45,7 @@
 
   .children-container {
     max-height: 100vh;
-    overflow-y: auto;
+    margin-left: $sidebar-width;
+    background-color: #FBFBFB;
   }
 }

@@ -65,7 +65,7 @@ function ModalCreateUpdateChannel(props) {
                 className="form-control"
                 type="text"
                 value={channelInfo.name}
-                placeholder="name"
+                placeholder="Name"
                 onChange={e => setChannelInfo({...channelInfo, name: e.target.value})}
               >
               </input>
@@ -75,7 +75,7 @@ function ModalCreateUpdateChannel(props) {
               <textarea
                 className="form-control"
                 value={channelInfo.description}
-                placeholder="description"
+                placeholder="Description"
                 onChange={e => setChannelInfo({...channelInfo, description: e.target.value})}
               >
               </textarea>
