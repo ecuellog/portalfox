@@ -1,12 +1,18 @@
 import React from 'react';
 import './OrganizationArticleTileVertical.scss';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function OrganizationArticleTileVertical(props) {
+  let history = useHistory();
+
+  function onTileClick() {
+    history.push(`/channels/${props.article.channelId}/articles/${props.article.id}`);
+  }
+
   return (
-    <NavLink
-      to={`/channels/${props.article.channelId}/articles/${props.article.id}`}
-      className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column my-3"
+    <div
+      className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column my-3 clickable"
+      onClick={onTileClick}
     >
       <div className="img-container">
         <img src={props.article.imageSrc}></img>
@@ -15,7 +21,7 @@ function OrganizationArticleTileVertical(props) {
         <h3 className="my-3">{props.article.title}</h3>
         <p className="my-3">{props.article.summary}</p>
       </div>
-    </NavLink>
+    </div>
   );
 }
 
