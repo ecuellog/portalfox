@@ -1,8 +1,23 @@
 .Component_OrganizationNavBar {
   background-color: white;
   border-bottom: solid 1px #e4e4e4;
-  
+
   .logo {
     height: 36px;
+  }
+
+  .avatar-colors.green{
+    background-color: green;
+  }
+
+  .dropdown-item {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .dropdown-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
