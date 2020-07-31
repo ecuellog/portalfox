@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ModalCreateOrganization from '../../components/ModalCreateOrganization';
+import ModalCreateOrganization from '../../components/ModalCreateOrganization/ModalCreateOrganization';
 import { fetchOrganizations } from '../../store/actions/organizations';
 import appLogo from '../../assets/images/logo_portalfox.png';
 import './PlatformOrgListView.scss';

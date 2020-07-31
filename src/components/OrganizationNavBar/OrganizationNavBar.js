@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'lodash';
-import fakeLogo from '../../assets/images/fakelogo.png';
 import Avatar from '@material-ui/core/Avatar';
 import { Dropdown } from 'react-bootstrap';
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 import './OrganizationNavBar.scss'
 
 function OrganizationNavBar(props) {
@@ -34,7 +33,10 @@ function OrganizationNavBar(props) {
 
   return (
     <nav className="Component_OrganizationNavBar navbar navbar-light fixed-top">
-      <img className="logo" src={fakeLogo}></img>
+      { _.get(props, 'organization.imageSrc') ?
+        <img className="logo" src={props.organization.imageSrc}></img> : 
+        <h2 className="logo mb-0">{_.get(props, 'organization.name')}</h2>
+      }
       <Dropdown alignRight>
         <Dropdown.Toggle
           as={AvatarDropdownToggle}
@@ -59,7 +61,8 @@ function OrganizationNavBar(props) {
 
 function mapStateToProps(state){
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    organization: state.organizations.activeOrganization
   }
 }
 
