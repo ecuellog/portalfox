@@ -19,6 +19,7 @@ import OrganizationGoogleAuthReturn from './components/OrganizationGoogleAuthRet
 import Loader from './components/Loader/Loader';
 import OrganizationArticleNewView from './views/OrganizationArticleNewView/OrganizationArticleNewView';
 import OrganizationArticleView from './views/OrganizationArticleView/OrganizationArticleView';
+import OrganizationUserProfileView from './views/OrganizationUserProfileView/OrganizationUserProfileView';
 
 function OrganizationApp(props) {
   let spaceName = Cookies.get('space_name');
@@ -82,6 +83,10 @@ function OrganizationApp(props) {
 
             <WrapperPrivateRoute path="/channels/:channelId/articles/:articleId">
               <OrganizationArticleView />
+            </WrapperPrivateRoute>
+
+            <WrapperPrivateRoute path="/users/:userId">
+              <OrganizationUserProfileView />
             </WrapperPrivateRoute>
           </Switch>
         </Router>

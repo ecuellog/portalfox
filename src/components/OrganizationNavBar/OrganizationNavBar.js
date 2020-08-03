@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import * as _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
 import { Dropdown } from 'react-bootstrap';
@@ -44,7 +44,11 @@ function OrganizationNavBar(props) {
         >
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item as="div">
+          <Dropdown.Item
+            to={`/users/${props.user.id}`}
+            as={NavLink}
+            exact
+          >
             <i className="dropdown-icon far fa-user"></i>
             <span className="ml-4">Your Profile</span>
           </Dropdown.Item>  
