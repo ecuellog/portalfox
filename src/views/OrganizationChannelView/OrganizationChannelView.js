@@ -31,10 +31,10 @@ function OrganizationChannelView(props) {
       <WrapperSideBar sidebar={<OrganizationChannelSideBar />} navbar={false}>
         <div className="constraint-width container-fluid p-5">
           <div className="row no-gutters">
-            <div className="col-lg-8">
+            <div className="col-lg-8 pr-4">
               <OrganizationArticleTiles channelId={channelId} />
             </div>
-            <div className="col-lg-4 pl-3">
+            <div className="col-lg-4 pl-4">
               <OrganizationEventsTile titleTodoChangeThis="Eventos" />
               <OrganizationEventsTile titleTodoChangeThis="Celebraciones" />
             </div>
