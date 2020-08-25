@@ -1,4 +1,4 @@
-@import '../../assets/styles/variables.scss';
+@import "../../assets/styles/variables.scss";
 
 .Component_WrapperSideBar {
   &.with-navbar {
@@ -13,32 +13,32 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    border-right: solid 1px #e4e4e4;
-    padding: 12px;
 
-    &.with-navbar  {
+    &.with-navbar {
       min-height: calc(100vh - $sidebar-height);
     }
 
-    hr {
-      height: 1px;
-      width: 100%;
-      margin-top: 8px;
-    }
-
     .link {
-      color: gray;
-      padding: 10px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: black;
+      padding: 7px 5px;
       text-decoration: none;
-      border-left: 3px solid transparent;
 
       &.active {
         color: $primary;
       }
 
-      &:hover {
-        background-color: #eaeaea;
-        border-radius: 5px;
+      span {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 10px;
+        vertical-align: text-bottom;
+      }
+
+      .sidebar-icon {
+        font-size: 24px;
       }
     }
   }
@@ -46,6 +46,6 @@
   .children-container {
     max-height: 100vh;
     margin-left: $sidebar-width;
-    background-color: #FBFBFB;
+    background-color: #f8f8f8;
   }
 }

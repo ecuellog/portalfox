@@ -1,14 +1,16 @@
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 @font-face {
-  font-family: 'Lato';
-  src: url('/assets/fonts/Lato/Lato-Regular.ttf') format('truetype');
+  font-family: "Lato";
+  src: url("/assets/fonts/Lato/Lato-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
-@import './assets/styles/variables.scss';
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+@import "./assets/fonts/pf-icons/css/pf-icons.css";
 
+@import "./assets/styles/variables.scss";
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .btn-google {
   border: 1px solid darkslategrey;
@@ -27,7 +29,7 @@
 .btn-back {
   font-size: 24px;
   padding-left: 0;
-  
+
   i {
     margin-right: 10px;
     font-size: 22px;
