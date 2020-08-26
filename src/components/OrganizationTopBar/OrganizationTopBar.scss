@@ -1,0 +1,36 @@
+.Component_OrganizationTopBar {
+  min-height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .avatar-colors.green{
+    background-color: green;
+  }
+
+  .dropdown {
+    margin-left: auto;
+  }
+
+  .dropdown-item {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .dropdown-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .search-component {
+    i {
+      font-size: 24px;
+    }
+
+    span {
+      font-size: 14px;
+      color: #999;
+    }
+  }
+}

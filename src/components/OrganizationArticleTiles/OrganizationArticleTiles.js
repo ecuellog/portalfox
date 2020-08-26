@@ -29,7 +29,7 @@ function OrganizationArticleTiles(props) {
   return (
     <div className="Component_OrganizationArticleTiles">
       <div className="row no-gutters">
-        <div className="col-md-6 pr-2">
+        <div className="col-md-6 pr-3">
           {props.articles
             .filter((article, index) => index % 2 === 0)
             .map(article => (
@@ -38,7 +38,7 @@ function OrganizationArticleTiles(props) {
               </div>
             ))}
         </div>
-        <div className="col-md-6 pl-2">
+        <div className="col-md-6 pl-3">
           {props.articles
             .filter((article, index) => index % 2 !== 0)
             .map(article => (

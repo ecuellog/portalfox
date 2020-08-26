@@ -3,7 +3,7 @@ import React from "react";
 function OrganizationEventsTile(props) {
   return (
     <div
-      className="Component_OrganizationEventsTile card card-body mb-5"
+      className="Component_OrganizationEventsTile card card-body mb-4"
       style={{ minHeight: "400px" }}
     >
       <h5>{props.titleTodoChangeThis}</h5>

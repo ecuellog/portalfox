@@ -13,7 +13,7 @@ function OrganizationArticleTileVertical(props) {
 
   return (
     <div
-      className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column my-3 clickable p-0"
+      className="Component_OrganizationArticleTileVertical card card-body d-flex flex-column mb-4 clickable p-0"
       onClick={onTileClick}
     >
       <div className="img-container">
