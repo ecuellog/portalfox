@@ -46,7 +46,7 @@ function OrganizationChannelView(props) {
   return (
     <div className="Component_OrganizationChannelView">
       <WrapperSideBar sidebar={<OrganizationChannelSideBar />} navbar={false}>
-        <div className="constraint-width container-fluid px-5 pb-5">
+        <div className="constraint-width container-fluid px-5">
           <OrganizationTopBar />
           <div className="row no-gutters">
             <div className="col-lg-8 pr-3">

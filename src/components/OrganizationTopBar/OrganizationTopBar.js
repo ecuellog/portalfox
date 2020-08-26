@@ -25,7 +25,7 @@ function OrganizationNavBar(props) {
     <Avatar
       alt={props.user.displayName}
       src={EdgardoAvatar}
-      className="clickable avatar-colors green"
+      className="clickable avatar-colors"
       ref={ref}
       onClick={e => {
         e.preventDefault();
