@@ -28,26 +28,11 @@ function OrganizationChannelView(props) {
     }
   }, [props.channels, channelId]);
 
-  const AvatarDropdownToggle = React.forwardRef((props, ref) => (
-    <Avatar
-      alt={props.user.displayName}
-      src={props.user.photoURL}
-      className="clickable avatar-colors green"
-      ref={ref}
-      onClick={e => {
-        e.preventDefault();
-        props.onClick(e);
-      }}
-    >
-      E
-    </Avatar>
-  ));
-
   return (
     <div className="Component_OrganizationChannelView">
       <WrapperSideBar sidebar={<OrganizationChannelSideBar />} navbar={false}>
         <div className="constraint-width container-fluid px-5">
-          <OrganizationTopBar />
+          <OrganizationTopBar search={true} />
           <div className="row no-gutters">
             <div className="col-lg-8 pr-3">
               <OrganizationArticleTiles channelId={channelId} />

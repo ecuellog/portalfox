@@ -1,11 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './OrganizationArticleNewSideBar.scss';
 import * as _ from 'lodash';
 
 function OrganizationArticleNewSideBar(props) {
   let history = useHistory();
+  let channelId = props.match.params.channelId;
 
   function goBack() {
     history.goBack();
@@ -28,6 +29,15 @@ function OrganizationArticleNewSideBar(props) {
         <i className="sidebar-icon pf-icon-left"></i>
         <span>Atras</span>
       </div>
+      <NavLink
+        className="link mb-3"
+        activeClassName="active"
+        to={`/channels/${channelId}/articles/new`}
+        exact
+      >
+        <i className="sidebar-icon pf-icon-color-picker"></i>
+        <span>Editar</span>
+      </NavLink>
     </div>
   );
 }
@@ -38,4 +48,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(OrganizationArticleNewSideBar);
+export default withRouter(connect(mapStateToProps)(OrganizationArticleNewSideBar));

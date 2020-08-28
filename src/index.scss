@@ -12,6 +12,10 @@
 @import "./assets/styles/variables.scss";
 @import "node_modules/bootstrap/scss/bootstrap";
 
+body {
+  background-color: #f8f8f8;
+}
+
 hr {
   border-color: #cccccc;
 }
@@ -71,4 +75,8 @@ p.validation-error {
 .card {
   border: 0px;
   border-radius: 10px;
+}
+
+.constraint-width {
+  max-width: 1366px;
 }

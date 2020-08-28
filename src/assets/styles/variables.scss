@@ -16,6 +16,11 @@ $spacers: (
   4: ($spacer * 2),
   5: ($spacer * 3)
 );
+
+// Forms
+$input-border-radius: 10px;
+$input-border-color: #e0e0e0;
+
 /** /Bootstrap overrides **/
 
 $sidebar-width: 300px;

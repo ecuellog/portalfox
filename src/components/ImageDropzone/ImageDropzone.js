@@ -14,8 +14,11 @@ function ImageDropzone(props) {
       <input {...getInputProps()} />
       {
         isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <h2>Soltar Imagen</h2> :
+          <div>
+            <h2>Soltar Imagen</h2>
+            <p>Arrastra una imagen o haz click aqui para subirla</p>
+          </div>
       }
     </div>
   )

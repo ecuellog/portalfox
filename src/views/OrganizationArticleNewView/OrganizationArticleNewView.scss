@@ -1,13 +1,14 @@
 @import '../../assets/styles/variables.scss';
 
 .Component_OrganizationArticleNewView {
-  .container {
-    margin-top: $sidebar-height;
-  }
-
   .title-input {
     width: 100%;
     font-size: 36px;
+  }
+
+  label {
+    font-size: 20px;
+    font-weight: 500;
   }
 
   textarea {

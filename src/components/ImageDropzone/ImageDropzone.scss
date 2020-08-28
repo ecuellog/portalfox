@@ -1,14 +1,16 @@
 .Component_ImageDropzone {
   width: 100%;
-  padding: 100px;
-  border: dashed 2px grey;
+  padding: 160px 100px;
+  border: dashed 2px #e0e0e0;
+  border-radius: 10px;
   cursor: pointer;
-  background-color: lightgrey;
+  background-color: #eeeeee;
   text-align: center;
   font-size: 24px;
-  color: dimgrey;
+  color: #909090;
 
   p {
+    font-size: 20px;
     margin-bottom: 0;
   }
 }

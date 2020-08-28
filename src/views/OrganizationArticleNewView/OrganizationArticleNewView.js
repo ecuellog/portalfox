@@ -9,9 +9,11 @@ import { v4 as uuidv4 } from 'uuid';
 import * as firebase from 'firebase/app';
 import WrapperSideBar from '../../components/WrapperSideBar/WrapperSideBar';
 import OrganizationArticleNewSideBar from '../../components/OrganizationArticleNewSideBar/OrganizationArticleNewSideBar';
+import OrganizationTopBar from '../../components/OrganizationTopBar/OrganizationTopBar';
 
 function OrganizationArticleNewView(props) {
   let history = useHistory();
+  const [joditRenderTrigger, setJoditRenderTrigger] = useState(false);
 
   function goBack() {
     props.resetNewArticle();
@@ -54,6 +56,10 @@ function OrganizationArticleNewView(props) {
     })
   }
 
+  function triggerJoditRerender() {
+    setJoditRenderTrigger(!joditRenderTrigger);
+  }
+
   function onDrop(file) {
     const reader = new FileReader();
 
@@ -65,6 +71,7 @@ function OrganizationArticleNewView(props) {
         mainImage: file,
         imageBinary: binResult
       });
+      triggerJoditRerender();
     };
 
     reader.readAsBinaryString(file);
@@ -81,13 +88,10 @@ function OrganizationArticleNewView(props) {
   return (
     <div className="Component_OrganizationArticleNewView">
       <WrapperSideBar sidebar={<OrganizationArticleNewSideBar />} navbar={false}>
-        <div className="container py-4">
-          <button className="btn btn-blank btn-back" onClick={goBack}>
-            <i className="fas fa-chevron-left"></i>
-            Back
-          </button>
-          <h2 className="mt-5 mb-4">Create Article</h2>
-          <label>Main Image</label>
+        <div className="constraint-width container-fluid px-5 pb-1">
+          <OrganizationTopBar search={false}/>
+          <h1 className="mb-4 text-center">Nuevo Articulo</h1>
+          <label>Imagen Principal</label>
           {props.newArticle.mainImage === null && (
             <ImageDropzone className="mb-4" onDrop={onDrop} />
           )}
@@ -101,33 +105,37 @@ function OrganizationArticleNewView(props) {
             </div>
           )}
           <form onSubmit={onSubmit}>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Titulo</label>
             <input
               type="text"
               name="title"
-              className="title-input"
+              className="form-control title-input"
               value={props.newArticle.title}
               onChange={e => setArticleProp('title', e.target.value)}
+              onBlur={triggerJoditRerender}
             ></input>
             <label htmlFor="summary" className="mt-4">
-              Summary
+              Descripcion
             </label>
             <textarea
               name="summary"
+              className="form-control"
               value={props.newArticle.summary}
               onChange={e => setArticleProp('summary', e.target.value)}
+              onBlur={triggerJoditRerender}
             ></textarea>
-            <label className="mt-4">Content</label>
+            <label className="mt-4">Contenido</label>
             <WrapperJoditEditor
               value={props.newArticle.content}
               onBlur={e => setArticleProp('content', e.target.innerHTML)}
               tabIndex={4}
+              renderTrigger={joditRenderTrigger}
             />
             <div className="d-flex justify-content-center mt-5">
               <button className="btn btn-blank" type="button" onClick={goBack}>
-                Cancel
+                Cancelar
               </button>
-              <button className="btn btn-primary"> Save </button>
+              <button className="btn btn-primary"> Publicar </button>
             </div>
           </form>
         </div>

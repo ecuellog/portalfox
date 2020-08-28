@@ -38,10 +38,12 @@ function OrganizationNavBar(props) {
 
   return (
     <div className="Component_OrganizationTopBar">
-      <div className="search-component d-flex align-items-center ml-2">
-        <i className="pf-icon-search"></i>
-        <span className="ml-1">Search</span>
-      </div>
+      { props.search && 
+        <div className="search-component d-flex align-items-center ml-2">
+          <i className="pf-icon-search"></i>
+          <span className="ml-1">Search</span>
+        </div>
+      }
       <Dropdown alignRight>
         <Dropdown.Toggle
           as={AvatarDropdownToggle}
