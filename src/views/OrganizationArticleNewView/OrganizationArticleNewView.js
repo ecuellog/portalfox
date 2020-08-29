@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './OrganizationArticleNewView.scss';
 import { createArticle, resetNewArticle, setNewArticle } from '../../store/actions/articles';
-import WrapperJoditEditor from '../../components/WrapperJoditEditor/WrapperJoditEditor';
-import ImageDropzone from '../../components/ImageDropzone/ImageDropzone';
 import { v4 as uuidv4 } from 'uuid';
 import * as firebase from 'firebase/app';
 import WrapperSideBar from '../../components/WrapperSideBar/WrapperSideBar';
 import OrganizationArticleNewSideBar from '../../components/OrganizationArticleNewSideBar/OrganizationArticleNewSideBar';
 import OrganizationTopBar from '../../components/OrganizationTopBar/OrganizationTopBar';
+import OrganizationArticleNewForm from '../../components/OrganizationArticleNewForm/OrganizationArticleNewForm';
+import OrganizationArticle from '../../components/OrganizationArticle/OrganizationArticle';
 
 function OrganizationArticleNewView(props) {
   let history = useHistory();
-  const [joditRenderTrigger, setJoditRenderTrigger] = useState(false);
+  const [activeTab, setActiveTab] = useState('');
+
+  useEffect(() => {
+    let tabName = new URLSearchParams(props.location.search).get('tab');
+    setActiveTab(tabName);
+  }, [props.location.search]);
 
   function goBack() {
     props.resetNewArticle();
@@ -49,95 +54,31 @@ function OrganizationArticleNewView(props) {
     });
   }
 
-  function setArticleProp(propName, propValue) {
-    props.setNewArticle({
-      ...props.newArticle,
-      [propName]: propValue
-    })
-  }
-
-  function triggerJoditRerender() {
-    setJoditRenderTrigger(!joditRenderTrigger);
-  }
-
-  function onDrop(file) {
-    const reader = new FileReader();
-
-    reader.onerror = () => alert('There was an error reading the file.');
-    reader.onload = () => {
-      const binResult = reader.result;
-      props.setNewArticle({
-        ...props.newArticle,
-        mainImage: file,
-        imageBinary: binResult
-      });
-      triggerJoditRerender();
-    };
-
-    reader.readAsBinaryString(file);
-  }
-
-  function resetImage() {
-    props.setNewArticle({
-      ...props.newArticle,
-      mainImage: null,
-      imageBinary: null
-    });
-  }
-
   return (
     <div className="Component_OrganizationArticleNewView">
       <WrapperSideBar sidebar={<OrganizationArticleNewSideBar />} navbar={false}>
-        <div className="constraint-width container-fluid px-5 pb-1">
+        <div className="constraint-width container-fluid px-5 pb-5">
           <OrganizationTopBar search={false}/>
-          <h1 className="mb-4 text-center">Nuevo Articulo</h1>
-          <label>Imagen Principal</label>
-          {props.newArticle.mainImage === null && (
-            <ImageDropzone className="mb-4" onDrop={onDrop} />
-          )}
-          {props.newArticle.mainImage !== null && (
-            <div className="container-main-img position-relative">
-              <i className="delete-icon fa fa-times" onClick={resetImage}></i>
-              <img
-                src={`data:image/*;base64,${btoa(props.newArticle.imageBinary)}`}
-                className="main-img mb-4"
-              ></img>
-            </div>
-          )}
-          <form onSubmit={onSubmit}>
-            <label htmlFor="title">Titulo</label>
-            <input
-              type="text"
-              name="title"
-              className="form-control title-input"
-              value={props.newArticle.title}
-              onChange={e => setArticleProp('title', e.target.value)}
-              onBlur={triggerJoditRerender}
-            ></input>
-            <label htmlFor="summary" className="mt-4">
-              Descripcion
-            </label>
-            <textarea
-              name="summary"
-              className="form-control"
-              value={props.newArticle.summary}
-              onChange={e => setArticleProp('summary', e.target.value)}
-              onBlur={triggerJoditRerender}
-            ></textarea>
-            <label className="mt-4">Contenido</label>
-            <WrapperJoditEditor
-              value={props.newArticle.content}
-              onBlur={e => setArticleProp('content', e.target.innerHTML)}
-              tabIndex={4}
-              renderTrigger={joditRenderTrigger}
-            />
+          <div className="px-lg-6">
+            {
+              !activeTab && (
+                <>
+                  <h1 className="mb-4 text-center">Nuevo Articulo</h1>
+                  <OrganizationArticleNewForm />
+                </>
+              )
+            }
+            {
+              activeTab === 'preview' &&
+              <OrganizationArticle new />
+            }
             <div className="d-flex justify-content-center mt-5">
               <button className="btn btn-blank" type="button" onClick={goBack}>
                 Cancelar
               </button>
-              <button className="btn btn-primary"> Publicar </button>
+              <button className="btn btn-primary" type="button" onClick={onSubmit}> Publicar </button>
             </div>
-          </form>
+          </div>
         </div>
       </WrapperSideBar>
     </div>

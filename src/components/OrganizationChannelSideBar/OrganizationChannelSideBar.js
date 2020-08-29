@@ -6,6 +6,7 @@ import './OrganizationChannelSideBar.scss';
 import * as _ from 'lodash';
 import OrganizationChannelLink from '../OrganizationChannelLink/OrganizationChannelLink';
 import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
+import OrganizationSideBarLogo from '../OrganizationSideBarLogo/OrganizationSideBarLogo';
 
 function OrganizationChannelSideBar(props) {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -16,14 +17,7 @@ function OrganizationChannelSideBar(props) {
 
   return (
     <div className="Component_OrganizationChannelSideBar">
-      {_.get(props, 'organization.imageSrc') ? (
-        <img className="logo" src={props.organization.imageSrc}></img>
-      ) : (
-        <h2 className="logo mb-0 text-center">
-          {_.get(props, 'organization.name')}
-        </h2>
-      )}
-      <hr />
+      <OrganizationSideBarLogo />
       <NavLink
         className="link mb-3"
         activeClassName="active"

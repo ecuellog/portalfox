@@ -24,6 +24,7 @@
     "jodit-react": "^1.0.59",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
+    "moment": "^2.27.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.1.1",
     "react-dom": "^16.12.0",

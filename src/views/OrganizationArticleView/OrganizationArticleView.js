@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './OrganizationArticleView.scss';
 import { fetchArticle, setActiveArticle } from '../../store/actions/articles';
-import Loader from '../../components/Loader/Loader';
-import DOMPurify from 'dompurify';
-import OrganizationNavBar from '../../components/OrganizationNavBar/OrganizationNavBar';
+import OrganizationArticle from '../../components/OrganizationArticle/OrganizationArticle';
+import WrapperSideBar from '../../components/WrapperSideBar/WrapperSideBar';
+import OrganizationArticleSideBar from '../../components/OrganizationArticleSideBar/OrganizationArticleSideBar';
+import OrganizationTopBar from '../../components/OrganizationTopBar/OrganizationTopBar';
 
 function OrganizationArticleView (props) {
-  let history = useHistory();
   const [channelId, setChannelId] = useState(null);
   const [articleId, setArticleId] = useState(null);
 
@@ -31,34 +31,16 @@ function OrganizationArticleView (props) {
     }
   }, [articleId, props.organization]);
 
-  function goBack() {
-    history.goBack();
-  }
-
 	return (
     <div className="Component_OrganizationArticleView">
-      <OrganizationNavBar/>
-      <div>
-        { props.article !== null && 
-          <div className="container py-4">
-            <button className="btn btn-blank btn-back" onClick={goBack}>
-              <i className="fas fa-chevron-left"></i>
-              Back
-            </button>
-            <h1 className="mt-5 mb-3 text-center">{props.article.title}</h1>
-            <div className="container-main-img">
-              <img src={props.article.imageSrc} className="main-img mb-4"></img>
-            </div>
-            <div
-              className="mt-5"
-              dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.article.content)}}
-            ></div>
+      <WrapperSideBar sidebar={<OrganizationArticleSideBar />} navbar={false}>
+        <div className="constraint-width container-fluid px-5 pb-5">
+          <OrganizationTopBar search={false}/>
+          <div className="px-lg-6">
+            <OrganizationArticle />
           </div>
-        }
-        { props.article === null && 
-          <Loader/>
-        }
-      </div>
+        </div>
+      </WrapperSideBar>
     </div>
   );
 }

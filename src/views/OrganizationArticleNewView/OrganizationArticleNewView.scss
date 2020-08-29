@@ -1,37 +1,5 @@
 @import '../../assets/styles/variables.scss';
 
 .Component_OrganizationArticleNewView {
-  .title-input {
-    width: 100%;
-    font-size: 36px;
-  }
 
-  label {
-    font-size: 20px;
-    font-weight: 500;
-  }
-
-  textarea {
-    width: 100%;
-  }
-
-  .container-main-img {
-    .main-img {
-      width: 100%;
-      max-height: 500px;
-      object-fit: cover;
-    }
-
-    .delete-icon {
-      position: absolute;
-      font-size: 20px;
-      right: 18px;
-      top: 18px;
-      padding: 13px 16px;
-      background-color: red;
-      color: white;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-  }
 }

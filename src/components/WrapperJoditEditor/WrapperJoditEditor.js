@@ -16,6 +16,7 @@ function WrapperJoditEditor(props) {
       value={props.value}
       config={config}
       onBlur={props.onBlur}
+      tabIndex={props.tabIndex}
     />
   );
 }

@@ -11,6 +11,7 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 import 'firebase/storage';
+import * as moment from 'moment';
 
 // Firebase configuration
 var firebaseConfig = {
@@ -34,6 +35,9 @@ firebase.storage();
 const store = createStore(rootReducer,
   compose(applyMiddleware(thunk), composeWithDevTools())
 );
+
+// Moment config
+moment.locale('es');
 
 ReactDOM.render(
   <Provider store={store}>
