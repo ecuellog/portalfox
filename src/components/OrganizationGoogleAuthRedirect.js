@@ -22,7 +22,7 @@ function OrganizationGoogleAuthRedirect() {
         let url = buildUrl(googleAuthEndpoint, {
           queryParams: {
             response_type: 'code',
-            client_id: '363106845702-sg7818avj5jv0actub50qer9qpoom27q.apps.googleusercontent.com',
+            client_id: process.env.GCLOUD_CLIENT_ID,
             scope: 'openid email',
             redirect_uri: `${authServerUrl}/orgs/${authRedirectRoute}`,
             state: stateString
