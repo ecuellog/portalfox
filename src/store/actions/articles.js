@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 
 export const SET_ARTICLES = 'SET_ARTICLES';
 export const SET_ACTIVE_ARTICLE = 'SET_ACTIVE_ARTICLE';
+export const SET_NEW_ARTICLE = 'SET_NEW_ARTICLE';
+export const RESET_NEW_ARTICLE = 'RESET_NEW_ARTICLE';
 
 // Basic
 export function setArticles(articles) {
@@ -16,6 +18,19 @@ export function setActiveArticle(article) {
   return {
     type: SET_ACTIVE_ARTICLE,
     article
+  }
+}
+
+export function setNewArticle(article) {
+  return {
+    type: SET_NEW_ARTICLE,
+    article
+  }
+}
+
+export function resetNewArticle() {
+  return {
+    type: RESET_NEW_ARTICLE
   }
 }
 

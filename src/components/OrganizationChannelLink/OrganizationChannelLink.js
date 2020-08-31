@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { NavLink, useLocation, Redirect } from 'react-router-dom';
-import { Dropdown } from 'react-bootstrap';
-import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
-import ModalDeleteChannel from '../ModalDeleteChannel/ModalDeleteChannel';
-import './OrganizationChannelLink.scss';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { NavLink, useLocation, Redirect } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import ModalCreateUpdateChannel from "../ModalCreateUpdateChannel/ModalCreateUpdateChannel";
+import ModalDeleteChannel from "../ModalDeleteChannel/ModalDeleteChannel";
+import "./OrganizationChannelLink.scss";
 
 function OrganizationChannelLink(props) {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -33,35 +33,35 @@ function OrganizationChannelLink(props) {
 
   function onToggleDropdown(isOpen, e) {
     if (e) e.preventDefault();
-   setShowDropdown(isOpen);
+    setShowDropdown(isOpen);
   }
 
-  function onClickCreateArticle () {
+  function onClickCreateArticle() {
     history.push(`/channels/${props.channel.id}/articles/new`);
   }
 
   return (
     <div className="Component_OrganizationChannelLink">
       <NavLink
-        className="link"
+        className="link my-3"
         key={props.channel.id}
         activeClassName="active"
         to={`/channels/${props.channel.id}`}
         onMouseLeave={() => setShowDropdown(false)}
       >
-        # {props.channel.name}
-        <div>
+        <i className="pf-icon-hash sidebar-icon"></i>
+        <span>{props.channel.name}</span>
+        <div className="ml-auto">
           <Dropdown alignRight show={showDropdown} onToggle={onToggleDropdown}>
             <Dropdown.Toggle
               as="i"
               className="dropmenu-icon fas fa-ellipsis-v"
-            >
-            </Dropdown.Toggle>
+            ></Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item as="div" onClick={onClickCreateArticle}>
                 <i className="dropdown-icon fas fa-pen-fancy"></i>
                 <span className="ml-4">Create Article</span>
-              </Dropdown.Item>  
+              </Dropdown.Item>
               <Dropdown.Item as="div" onClick={handleEditClick}>
                 <i className="dropdown-icon far fa-edit"></i>
                 <span className="ml-4">Edit Channel</span>

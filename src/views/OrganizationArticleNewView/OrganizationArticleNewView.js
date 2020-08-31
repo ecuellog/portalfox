@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './OrganizationArticleNewView.scss';
-import { createArticle } from '../../store/actions/articles';
-import WrapperJoditEditor from '../../components/WrapperJoditEditor/WrapperJoditEditor';
-import ImageDropzone from '../../components/ImageDropzone/ImageDropzone'; 
+import { createArticle, resetNewArticle, setNewArticle } from '../../store/actions/articles';
 import { v4 as uuidv4 } from 'uuid';
-import * as firebase from "firebase/app";
-import OrganizationNavBar from '../../components/OrganizationNavBar/OrganizationNavBar';
+import * as firebase from 'firebase/app';
+import WrapperSideBar from '../../components/WrapperSideBar/WrapperSideBar';
+import OrganizationArticleNewSideBar from '../../components/OrganizationArticleNewSideBar/OrganizationArticleNewSideBar';
+import OrganizationTopBar from '../../components/OrganizationTopBar/OrganizationTopBar';
+import OrganizationArticleNewForm from '../../components/OrganizationArticleNewForm/OrganizationArticleNewForm';
+import OrganizationArticle from '../../components/OrganizationArticle/OrganizationArticle';
 
-function OrganizationArticleNewView (props) {
+function OrganizationArticleNewView(props) {
   let history = useHistory();
+  const [activeTab, setActiveTab] = useState('');
 
-  const defaultArticleInfo = {
-    title: '',
-    summary: ''
-  };
+  useEffect(() => {
+    let tabName = new URLSearchParams(props.location.search).get('tab');
+    setActiveTab(tabName);
+  }, [props.location.search]);
 
-  const [articleInfo, setArticleInfo] = useState(defaultArticleInfo);
-  const [content, setContent] = useState('');
-  const [mainImage, setMainImage] = useState(null);
-  const [imageBinary, setImageBinary] = useState(null);
-  
   function goBack() {
+    props.resetNewArticle();
     history.goBack();
   }
 
@@ -33,93 +32,71 @@ function OrganizationArticleNewView (props) {
 
     let storageRef = firebase.storage().ref();
     let articleImgsRef = storageRef.child(`articleImages/${imageId}`);
-    
-    articleImgsRef.put(mainImage).then((snapshot) => {
-      articleImgsRef.getDownloadURL().then((url) => {
-        props.createArticle(channelId, {...articleInfo, content, imageSrc: url})
-          .then((message) => {
+
+    articleImgsRef.put(props.newArticle.mainImage).then(snapshot => {
+      articleImgsRef.getDownloadURL().then(url => {
+        props
+          .createArticle(channelId, {
+            title: props.newArticle.title,
+            summary: props.newArticle.summary,
+            content: props.newArticle.content,
+            imageSrc: url
+          })
+          .then(message => {
             alert(message);
+            props.resetNewArticle();
             goBack();
           })
-          .catch((error) => {
+          .catch(error => {
             alert(error);
-          })
+          });
       });
     });
   }
 
-  function onDrop(file) {
-    const reader = new FileReader();
-
-    reader.onerror = () => alert('There was an error reading the file.');
-    reader.onload = () => {
-      const binResult = reader.result;
-      setImageBinary(binResult);
-      setMainImage(file);
-    };
-    
-    reader.readAsBinaryString(file);
-  }
-
-  function resetImage() {
-    setMainImage(null);
-    setImageBinary(null);
-  }
-
-	return (
+  return (
     <div className="Component_OrganizationArticleNewView">
-      <OrganizationNavBar/>
-      <div className="container py-4">
-        <button className="btn btn-blank btn-back" onClick={goBack}>
-          <i className="fas fa-chevron-left"></i>
-          Back
-        </button>
-        <h2 className="mt-5 mb-4">Create Article</h2>
-        <label>Main Image</label>
-        { mainImage === null && 
-          <ImageDropzone className="mb-4" onDrop={onDrop}/>
-        }
-        { mainImage !== null &&
-          <div className="container-main-img position-relative">
-            <i className="delete-icon fa fa-times" onClick={resetImage}></i>
-            <img src={`data:image/*;base64,${btoa(imageBinary)}`} className="main-img mb-4"></img>
+      <WrapperSideBar sidebar={<OrganizationArticleNewSideBar />} navbar={false}>
+        <div className="constraint-width container-fluid px-5 pb-5">
+          <OrganizationTopBar search={false}/>
+          <div className="px-lg-6">
+            {
+              !activeTab && (
+                <>
+                  <h1 className="mb-4 text-center">Nuevo Articulo</h1>
+                  <OrganizationArticleNewForm />
+                </>
+              )
+            }
+            {
+              activeTab === 'preview' &&
+              <OrganizationArticle new />
+            }
+            <div className="d-flex justify-content-center mt-5">
+              <button className="btn btn-blank" type="button" onClick={goBack}>
+                Cancelar
+              </button>
+              <button className="btn btn-primary" type="button" onClick={onSubmit}> Publicar </button>
+            </div>
           </div>
-        }
-        <form onSubmit={onSubmit}>
-          <label htmlFor="title">Title</label>
-          <input  
-            type="text"
-            name="title"
-            className="title-input"
-            value={articleInfo.title}
-            onChange={e => setArticleInfo({...articleInfo, title: e.target.value})}
-          ></input>
-          <label htmlFor="summary" className="mt-4">Summary</label>
-          <textarea
-            name="summary"
-            value={articleInfo.summary}
-            onChange={e => setArticleInfo({...articleInfo, summary: e.target.value})}
-          ></textarea>
-          <label className="mt-4">Content</label>
-          <WrapperJoditEditor
-            value={content}
-            onBlur={content => setContent(content)}
-            tabIndex={4}
-          />
-          <div className="d-flex justify-content-center mt-5">
-            <button className="btn btn-blank" type="button" onClick={goBack}> Cancel </button>
-            <button className="btn btn-primary"> Save </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      </WrapperSideBar>
     </div>
   );
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    createArticle: (channelId, articleInfo) => dispatch(createArticle(channelId, articleInfo))
+    newArticle: state.articles.newArticle
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(OrganizationArticleNewView));
+function mapDispatchToProps(dispatch) {
+  return {
+    createArticle: (channelId, articleInfo) => dispatch(createArticle(channelId, articleInfo)),
+    setNewArticle: (article) => dispatch(setNewArticle(article)),
+    resetNewArticle: () => dispatch(resetNewArticle())
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrganizationArticleNewView));

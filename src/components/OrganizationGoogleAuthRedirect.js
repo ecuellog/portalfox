@@ -8,7 +8,7 @@ function OrganizationGoogleAuthRedirect() {
 
   useEffect(() => {
     const authMode = queryParams.get('authMode');
-    const authServerUrl = 'http://localhost:5001/portalfox-68431/us-central1/widgets'
+    const authServerUrl = `${process.env.GCLOUD_FUNCTIONS_URL}/widgets`
     const authRedirectRoute = authMode === 'login' ? 'googleLoginRedirect' : 'googleRegisterRedirect'
     let state = {
       orgId: queryParams.get('orgId')

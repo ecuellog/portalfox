@@ -111,7 +111,7 @@ function ModalCreateOrganization(props) {
                   onErrorChange={(err) => setErrors({...errors, subdomain: err})}
                 ></Input>
                 <div className="input-group-append">
-                  <span className="input-group-text">.portalfox.com</span>
+                  <span className="input-group-text">.{process.env.APP_URL}</span>
                 </div>
               </div>
               <p className="validation-error">

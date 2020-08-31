@@ -1,0 +1,33 @@
+@import '../../assets/styles/variables.scss';
+
+.Component_OrganizationArticleNewForm {
+  .title-input {
+    width: 100%;
+    font-size: 32px;
+  }
+
+  label {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: none;
+  }
+
+  .container-main-img {
+    .delete-icon {
+      position: absolute;
+      font-size: 20px;
+      right: 18px;
+      top: 18px;
+      padding: 13px 16px;
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  }
+}

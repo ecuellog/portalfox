@@ -3,7 +3,7 @@ import Axios from "axios";
 
 export default class AuthService {
   static organizationLogin(email, password, organizationId) {
-    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/orgs/login', {
+    return Axios.post(`${process.env.GCLOUD_FUNCTIONS_URL}/widgets/orgs/login`, {
       email,
       password,
       organizationId
@@ -14,7 +14,7 @@ export default class AuthService {
   }
 
   static organizationRegister(email, password, organizationId) {
-    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/orgs/register', {
+    return Axios.post(`${process.env.GCLOUD_FUNCTIONS_URL}/widgets/orgs/register`, {
       email,
       password,
       organizationId
@@ -25,14 +25,14 @@ export default class AuthService {
   }
 
   static platformGoogleLogin(tokenId) {
-    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/platform/googlelogin', {tokenId})
+    return Axios.post(`${process.env.GCLOUD_FUNCTIONS_URL}/widgets/platform/googlelogin`, {tokenId})
       .then((res) => {
         return firebase.auth().signInWithCustomToken(res.data.token)
       });
   }
 
   static platformGoogleRegister(tokenId) {
-    return Axios.post('http://localhost:5001/portalfox-68431/us-central1/widgets/platform/googleregister', {tokenId})
+    return Axios.post(`${process.env.GCLOUD_FUNCTIONS_URL}/widgets/platform/googleregister`, {tokenId})
       .then((res) => {
         return firebase.auth().signInWithCustomToken(res.data.token)
       });

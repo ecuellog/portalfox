@@ -16,7 +16,7 @@ function PlatformOrgOverview(props) {
             <div className="col-lg-10 offset-lg-1">
               <div className="my-3 my-lg-5">
                 <h2>{_.get(props, 'organization.name')}</h2>
-                <h5>{_.get(props, 'organization.subdomain')}.portalfox.com</h5>
+                <h5>{_.get(props, 'organization.subdomain')}.{process.env.APP_URL}</h5>
               </div>
               <div className="row">
                 <div className="col-12 my-2">

@@ -45,26 +45,29 @@ router.post('/googleregister', (req, res) => {
   })
     .then((decodedToken) => {
       const payload = decodedToken.getPayload();
-      admin.auth().getUser(payload.sub)
-      .then(() => {
-        return res.status(403).json({error: 'User already registered. Please log in.'});
-      })
-      .catch((error) => {
-        if(error.code === 'auth/user-not-found') {
-          admin.auth().createCustomToken(payload.sub)
-            .then((customToken) => {
-              console.log('Sending custom token');
-              console.log(customToken);
-              return res.json({token: customToken});
-            })
-            .catch((error) => {
-              return res.status(500).json({error: 'Something went wrong.'})
-            })
-        } else {
-          console.log(error);
-          return res.status(403).json({error: 'Failed to verify token.'});
-        }
-      })
+      return admin.auth().getUser(payload.sub)
+        .then(() => {
+          return res.status(403).json({error: 'User already registered. Please log in.'});
+        })
+        .catch((error) => {
+          if(error.code === 'auth/user-not-found') {
+            admin.auth().createCustomToken(payload.sub)
+              .then((customToken) => {
+                console.log('Sending custom token');
+                console.log(customToken);
+                return res.json({token: customToken});
+              })
+              .catch((error) => {
+                return res.status(500).json({error: 'Something went wrong.'})
+              })
+          } else {
+            console.log(error);
+            return res.status(403).json({error: 'Failed to verify token.'});
+          }
+        })
+    })
+    .catch((error) => {
+      return res.status(500).json({error: 'Something went wrong.'})
     })
 });
 

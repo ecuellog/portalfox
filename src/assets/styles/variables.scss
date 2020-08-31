@@ -1,11 +1,28 @@
 /** Bootstrap overrides **/
-$primary: #3B3461;
-$scondary: #F6564B;
-$font-family-sans-serif: "Lato";
+$primary: #3b3461;
+$scondary: #f6564b;
+$font-family-sans-serif: "DM Sans";
 
 // Modals
 $modal-dialog-margin-y-sm-up: 6rem;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 2),
+  5: ($spacer * 3),
+  6: ($spacer * 4)
+);
+
+// Forms
+$input-border-radius: 10px;
+$input-border-color: #e0e0e0;
+
 /** /Bootstrap overrides **/
 
-$sidebar-width: 260px;
+$sidebar-width: 300px;
 $sidebar-height: 52px;

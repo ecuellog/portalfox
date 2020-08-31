@@ -1,9 +1,5 @@
 .Component_OrganizationChannelLink {
   .link {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-
     &:hover {
       .dropmenu-icon {
         display: block;
@@ -20,7 +16,7 @@
   .dropdown-item {
     position: relative;
   }
-  
+
   .dropdown-icon {
     position: absolute;
     top: 50%;

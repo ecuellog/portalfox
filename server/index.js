@@ -2,16 +2,19 @@ const express = require('express')
 const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const config = require('../webpack.config.js');
+const webpackConfigFunction = require('../webpack.config.js');
 const app = express();
-const port = 4001;
+const port = process.env.PORT || 4001;
 
-const compiler = webpack(config);
+const webpackConfig = webpackConfigFunction(process.env);
+const compiler = webpack(webpackConfig);
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  writeToDisk: true
-}));
+if(process.env.NODE_ENV === 'development') {
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true
+  }));
+}
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, '../dist'), {index: false}));

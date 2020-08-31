@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	match /organizations/{organizationId} {
+    	allow create: if !exists(/databases/$(database)/documents/subdomains/$(request.resource.data.subdomain))
+      
+      // TODO
+      allow read: if true
+      
+      match /channels/{channelId} {
+      // TODO
+      	allow write: if true
+      	allow read: if true
+        
+        // TODO
+        match /articles/{articleId} {
+        	allow write: if true
+          allow read: if true
+        }
+      }
+    }
+    match /subdomains/{subdomain} {
+    	allow create, read: if true
+    }
+    match /{path=**}/articles/{articleId} {
+      allow read: if true
+    }
+  }
+}

@@ -6,35 +6,41 @@ import './OrganizationChannelSideBar.scss';
 import * as _ from 'lodash';
 import OrganizationChannelLink from '../OrganizationChannelLink/OrganizationChannelLink';
 import ModalCreateUpdateChannel from '../ModalCreateUpdateChannel/ModalCreateUpdateChannel';
+import OrganizationSideBarLogo from '../OrganizationSideBarLogo/OrganizationSideBarLogo';
 
 function OrganizationChannelSideBar(props) {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
-    if (props.organization !== null)
-    props.fetchChannels();
+    if (props.organization !== null) props.fetchChannels();
   }, [props.organization]);
 
   return (
-    <>
-      <h4 className="p-2">Channels</h4>
+    <div className="Component_OrganizationChannelSideBar">
+      <OrganizationSideBarLogo />
       <NavLink
-        className="link"
+        className="link mb-3"
         activeClassName="active"
         to="/channels/all"
-      >All Channels</NavLink>
-      { props.channels.map(channel => (
+      >
+        <i className="sidebar-icon pf-icon-keypad"></i>
+        <span>Todos</span>
+      </NavLink>
+      {props.channels.map(channel => (
         <OrganizationChannelLink key={channel.id} channel={channel} />
       ))}
-      <div className="p-3 clickable" onClick={() => setShowCreateModal(true)}>
-        + Add Channel
+      <div
+        className="btn btn-primary mt-4 w-100"
+        onClick={() => setShowCreateModal(true)}
+      >
+        + Nuevo Canal
       </div>
       <ModalCreateUpdateChannel
         showModal={showCreateModal}
         handleModalClose={() => setShowCreateModal(false)}
         edit={false}
       />
-    </>
+    </div>
   );
 }
 
@@ -42,13 +48,16 @@ function mapStateToProps(state) {
   return {
     organization: state.organizations.activeOrganization,
     channels: state.channels.channels
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchChannels: () => dispatch(fetchChannels())
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (OrganizationChannelSideBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrganizationChannelSideBar);
