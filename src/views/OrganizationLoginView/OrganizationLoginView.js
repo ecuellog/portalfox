@@ -29,7 +29,7 @@ function OrganizationLoginView(props) {
 
   function redirectToGoogleLogin(e) {
     e.preventDefault();
-    let url = buildUrl('http://lvh.me:4001/orgGoogleAuthRedirect', {
+    let url = buildUrl(`${process.env.APP_PROTOCOL}://${process.env.APP_URL}/orgGoogleAuthRedirect`, {
       queryParams: {
         orgId: props.organization.id,
         authMode: 'login'
