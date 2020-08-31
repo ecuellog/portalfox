@@ -58,6 +58,7 @@ router.post('/googleregister', (req, res) => {
                 return res.json({token: customToken});
               })
               .catch((error) => {
+								console.log(error);
                 return res.status(500).json({error: 'Something went wrong.'})
               })
           } else {
@@ -67,6 +68,7 @@ router.post('/googleregister', (req, res) => {
         })
     })
     .catch((error) => {
+			console.log(error);
       return res.status(500).json({error: 'Something went wrong.'})
     })
 });
