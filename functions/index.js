@@ -11,7 +11,7 @@ const platform = require('./routes/platform.js');
 
 const app = express();
 
-if (config.general.environment === 'dev') {
+if (config.general.environment === 'development') {
   const serviceAccount = require(config.gcloud.serviceAccountLoc);
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)

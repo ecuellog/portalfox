@@ -2,4 +2,5 @@ dist
 **/node_modules/**
 **serviceAccount.json
 .env
+env.json
 firebase-debug.log

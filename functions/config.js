@@ -1,20 +1,31 @@
-require('dotenv').config()
+const functions = require('firebase-functions')
+const fs = require('fs')
 const {OAuth2Client} = require('google-auth-library');
+const _ = require('lodash');
+
+let envConfig = _.get(functions.config(), 'env');
+
+if (process.env.NODE_ENV !== 'production') {
+  if (fs.existsSync('./env.json')) {
+    const env = require('./env.json')
+    envConfig = env
+  }
+}
 
 var config = {
   general: {
-    environment: process.env.ENVIRONMENT || 'dev',
-    serverUrl: process.env.SERVER_URL || 'http://localhost:5001/portalfox-dev/us-central1',
+    environment: _.get(envConfig, 'general.environment') || 'development',
+    serverUrl: _.get(envConfig, 'general.serverUrl') || 'http://localhost:5001/portalfox-dev/us-central1',
     clientUrl: {
-      protocol: process.env.CLIENT_URL_PROTO || 'http',
-      domain: process.env.CLIENT_URL_DOMAIN || 'lvh.me:4001'
+      protocol: _.get(envConfig, 'general.clientUrl.protocol') || 'http',
+      domain: _.get(envConfig, 'general.clientUrl.domain') || 'lvh.me:4001'
     }
   },
   gcloud: {
-    clientId: process.env.G_CLIENT_ID,
-    clientSecret: process.env.G_CLIENT_SECRET,
-    discoveryURL: process.env.G_DISCOVERY_URL || 'https://accounts.google.com/.well-known/openid-configuration',
-    serviceAccountLoc: process.env.G_SERVICE_ACCOUNT_LOC || './serviceAccount.json'
+    clientId: _.get(envConfig, 'gcloud.clientId'),
+    clientSecret: _.get(envConfig, 'gcloud.clientSecret'),
+    discoveryURL: _.get(envConfig, 'gcloud.discoveryURL') || 'https://accounts.google.com/.well-known/openid-configuration',
+    serviceAccountLoc: _.get(envConfig, 'gcloud.serviceAccountLoc') || './serviceAccount.json'
   }
 }
 

@@ -6,11 +6,12 @@
   "scripts": {
     "start": "NODE_ENV=development node server/index.js",
     "deploy": "NODE_ENV=production node server/index.js",
-    "build": "webpack --env.NODE_ENV=production",
+    "build": "NODE_OPTIONS='--max_old_space_size=4096' webpack --env.NODE_ENV=production",
     "firebase:emulators-start": "firebase emulators:start",
-    "firebase:deploy-staging": "firebase deploy -P staging",
-    "firebase:deploy-production": "firebase deploy -P production",
-    "firebase:deploy-dev": "firebase deploy --only firestore:rules -P default"
+    "firebase:env-set": "test -f env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat env.json)\" || echo \"Please add the file env.json before deploy.\"",
+    "firebase:deploy-staging": "npm run firebase:env-set && firebase deploy -P staging",
+    "firebase:deploy-production": "npm run firebase:env-set && firebase deploy -P production",
+    "firebase:deploy-dev-rules": "firebase deploy --only firestore:rules -P default"
   },
   "author": "Edgardo Cuello",
   "license": "ISC",
