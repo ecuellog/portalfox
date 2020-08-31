@@ -44,7 +44,7 @@ function PlatformOrgListView(props) {
                     <div className="card clickable">
                       <div className="card-body">
                         <h4 className="card-title">{organization.name}</h4>
-                        <h6 className="card-subtitle mb-2 text-muted">{organization.subdomain}.portalfox.com</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">{organization.subdomain}.{process.env.APP_URL}</h6>
                       </div>
                     </div>
                   </div>

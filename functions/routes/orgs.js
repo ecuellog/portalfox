@@ -37,7 +37,10 @@ router.post('/register', (req, res) => {
       return res.json({token: customToken});
     })
     .catch((err) => {
-      return res.json({error: 'Something went wrong.'});
+      return res.json({
+        error: 'Something went wrong.',
+        data: err
+      });
     });
 });
 

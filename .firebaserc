@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "portalfox-68431"
+    "default": "portalfox-dev",
+    "staging": "portalfox-staging",
+    "production": "portalfox-68431"
   }
 }

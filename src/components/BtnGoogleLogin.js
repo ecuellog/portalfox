@@ -36,11 +36,12 @@ function BtnGoogleLogin(props) {
 
   return (
     <GoogleLogin
-      clientId="363106845702-sg7818avj5jv0actub50qer9qpoom27q.apps.googleusercontent.com"
+      clientId={process.env.GCLOUD_CLIENT_ID}
       buttonText={props.method === 'login'? 'Login with Google' : 'Register with Google'}
       onSuccess={onGoogleLoginSuccess}
       onFailure={onGoogleLoginFailure}
       cookiePolicy={'single_host_origin'}
+      prompt="consent"
       render={renderProps => (
         <button
           className="btn btn-google"

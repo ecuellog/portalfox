@@ -4,7 +4,13 @@
   "description": "Intraweb solution",
   "main": "server/index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "NODE_ENV=development node server/index.js",
+    "deploy": "NODE_ENV=production node server/index.js",
+    "build": "webpack --env.NODE_ENV=production",
+    "firebase:emulators-start": "firebase emulators:start",
+    "firebase:deploy-staging": "firebase deploy -P staging",
+    "firebase:deploy-production": "firebase deploy -P production",
+    "firebase:deploy-dev": "firebase deploy --only firestore:rules -P default"
   },
   "author": "Edgardo Cuello",
   "license": "ISC",
@@ -16,6 +22,7 @@
     "build-url": "^2.0.0",
     "cookie-parser": "^1.4.5",
     "dompurify": "^2.0.12",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^7.15.1",
     "firebase-admin": "^8.12.1",

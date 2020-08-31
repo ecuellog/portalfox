@@ -15,14 +15,14 @@ import * as moment from 'moment';
 
 // Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyBgAIMoXv-URoXAARq0JzD7AAOIrZhSMtU",
-  authDomain: "portalfox-68431.firebaseapp.com",
-  databaseURL: "https://portalfox-68431.firebaseio.com",
-  projectId: "portalfox-68431",
-  storageBucket: "portalfox-68431.appspot.com",
-  messagingSenderId: "363106845702",
-  appId: "1:363106845702:web:b0134d4dcc4b19f03def87",
-  measurementId: "G-WZ7YR66RSV"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
