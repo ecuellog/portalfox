@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './store/reducers';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import App from './App';
 import * as firebase from "firebase/app";
 import "firebase/analytics";
@@ -33,7 +33,7 @@ firebase.storage();
 
 // Redux store config
 const store = createStore(rootReducer,
-  compose(applyMiddleware(thunk), composeWithDevTools())
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 // Moment config
