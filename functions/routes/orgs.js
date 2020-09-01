@@ -156,11 +156,14 @@ router.get('/googleLoginRedirect', async (req, res) => {
         .collection('organizations').doc(organizationId)
         .get()
       var organization = organizationDoc.data();
+      if(!organization) {
+        return res.status(400).json({error: 'Bad request.'});
+      }
     } catch (err) {
-      res.status(400).json({error: 'Bad request.'});
+      return res.status(400).json({error: 'Bad request.'});
     }
   } else {
-    res.status(400).json({error: 'Bad request.'});
+    return res.status(400).json({error: 'Bad request.'});
   }
 
   // Get Google OAuth Endpoints from the Discovery API
