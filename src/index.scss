@@ -25,16 +25,28 @@ h5 {
 }
 
 .btn-google {
-  border: 1px solid darkslategrey;
-  color: darkslategrey;
+  width: 100%;
+  color: white;
+  background-color: #3185F8;
 
   .google-logo {
     float: left;
-    width: 24px;
+    width: 27px;
+  }
+
+  img {
+    padding: 3px;
+    background-color: white;
+    border-radius: 50%;
   }
 
   span {
     margin-left: -24px;
+  }
+
+  &:hover {
+    color: white;
+    background-color: darken(#3185F8, 7.5%);
   }
 }
 
@@ -48,12 +60,41 @@ h5 {
   }
 }
 
+.login-register-logo {
+  width: 300px;
+  text-align: center;
+  margin: 0px auto 15px;
+}
+
 .login-register-container {
-  height: calc(100vh - 60px);
-  max-width: 600px;
+  background-color: #ffffff;
+  font-size: 18px;
+  width: 750px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 2rem;
+  padding: 4rem 5rem;
+
+  input.form-control {
+    font-weight: 500;
+    padding: 22px 20px;
+    font-size: 18px;
+    background-color: #F3F5F7;
+    border-color: #F3F5F7;
+    &::placeholder {
+      color: #A5A5A5;
+    }
+  }
+
+  .btn {
+    padding: 9px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .or-separator {
+    color: #A5A5A5;
+  }
 }
 
 .standard-app-logo {
