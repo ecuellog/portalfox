@@ -37,7 +37,7 @@ function BtnGoogleLogin(props) {
   return (
     <GoogleLogin
       clientId={process.env.GCLOUD_CLIENT_ID}
-      buttonText={props.method === 'login'? 'Login with Google' : 'Register with Google'}
+      buttonText={props.method === 'login'? 'Inicia Sesion con Google' : 'Registrate con Google'}
       onSuccess={onGoogleLoginSuccess}
       onFailure={onGoogleLoginFailure}
       cookiePolicy={'single_host_origin'}
@@ -49,7 +49,7 @@ function BtnGoogleLogin(props) {
           disabled={renderProps.disabled}
         >
           <img className="google-logo" src={googleLogo}></img>
-          <span>{props.method === 'login' ? 'Login' : 'Register'} with Google</span>
+          <span>{props.method === 'login' ? 'Inicia Sesion' : 'Registrate'} con Google</span>
         </button>
       )}
     />

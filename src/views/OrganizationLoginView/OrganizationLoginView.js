@@ -72,7 +72,7 @@ function OrganizationLoginView(props) {
         <div className="or-separator d-flex justify-content-between align-items-center py-4">
           <hr className="flex-grow-1 mr-3 ml-4"/>
           <h6 className="text-center mb-0">o</h6>
-          <hr className="flex-grow-1 ml-3 mr-4"/>          
+          <hr className="flex-grow-1 ml-3 mr-4"/>
         </div>
         <button
           className="btn btn-google"

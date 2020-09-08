@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as firebase from "firebase/app";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import BtnGoogleLogin from '../../components/BtnGoogleLogin';
 import appLogo from '../../assets/images/logo_portalfox.png';
 
@@ -27,10 +27,10 @@ function PlatformRegisterView() {
   }
 
   return (
-    <div>
-      <img src={appLogo} className="standard-app-logo p-1"></img>
-      <div className="login-register-container d-flex flex-column justify-content-center">
-        <h1 className="text-center mb-5">Create a Portalfox Account</h1>
+    <div className="d-flex flex-column justify-content-center h-100">
+      <img src={appLogo} className="login-register-logo"></img>
+      <div className="login-register-container">
+        <h2 className="mb-5">Registrate</h2>
         <form className="mb-0" onSubmit={onSubmit}>
           <div className="form-group">
             <input
@@ -54,12 +54,16 @@ function PlatformRegisterView() {
             >
             </input>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">Create account</button>
+          <button type="submit" className="btn btn-primary btn-block">Registrate</button>
         </form>
-        <h6 className="py-4 text-center">or</h6>
+        <div className="or-separator d-flex justify-content-between align-items-center py-4">
+          <hr className="flex-grow-1 mr-3 ml-4"/>
+          <h6 className="text-center mb-0">o</h6>
+          <hr className="flex-grow-1 ml-3 mr-4"/>
+        </div>
         <BtnGoogleLogin method="register"/>
-        <div className="text-center my-5">
-          Already have an account? <Link to="/login">Log in</Link>
+        <div className="text-center mt-5">
+          <h6>¿Ya tienes cuenta? <NavLink to="/login" className="d-inline p-0">Inicia Seción</NavLink></h6>
         </div>
       </div>
     </div>

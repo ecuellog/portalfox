@@ -77,10 +77,10 @@ function OrganizationRegisterView(props) {
           onClick={redirectToGoogleRegister}
         >
           <img className="google-logo" src={googleLogo}></img>
-          <span>Register with Google</span>
+          <span>Registrate con Google</span>
         </button>
         <div className="text-center mt-5">
-          <h6>¿Ya tienes cuenta? <NavLink to="/login" className="d-inline p-0">Inicia Secion</NavLink></h6>
+          <h6>¿Ya tienes cuenta? <NavLink to="/login" className="d-inline p-0">Inicia Sesión</NavLink></h6>
         </div>
       </div>
     </div>
