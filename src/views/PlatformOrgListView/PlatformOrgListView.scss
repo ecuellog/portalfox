@@ -1,6 +1,42 @@
+@import '../../assets/styles/variables.scss';
+
 .Component_PlatformOrgListView {
+  .page-title {
+    color: #797979;
+  }
+
   .card {
     min-height: 260px;
+  }
+
+  .card-body {
+    padding: 24px 30px;
+  }
+
+  .card-subtitle {
+    color: #999999;
+    font-size: 14px;
+  }
+
+  .organization-img {
+    max-width: 100%;
+    max-height: 25px;
+    object-fit: contain;
+    margin: 0 auto 20px 0;
+  }
+
+  .organization-created-at {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: $primary;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  .example-description {
+    margin-top: 42px;
   }
 
   .create-org-icon {
@@ -10,5 +46,15 @@
   .create-org-text {
     font-weight: bold;
     letter-spacing: 1px;
+  }
+
+  .organization-explain {
+    height: 100%;
+  }
+
+  .organization-explain-image {
+    width: 220px;
+    object-fit: contain;
+    margin-left: 30px;
   }
 }

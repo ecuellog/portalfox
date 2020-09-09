@@ -79,13 +79,13 @@ function ModalCreateOrganization(props) {
     >
       <Modal.Body>
         <div>
-          <h2 className="mb-5">Create Organization</h2>
+          <h2 className="mb-5">Crear Organizacion</h2>
           <Form onSubmit={onSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Organization Name</label>
+              <label htmlFor="name">Nombre de Organizacion</label>
               <Input
                 className="form-control"
-                placeholder="Your Organization Inc."
+                placeholder="Organization Inc."
                 type="text"
                 name="name"
                 value={orgInfo.name}
@@ -98,11 +98,11 @@ function ModalCreateOrganization(props) {
               </p>
             </div>
             <div className="form-group">
-              <label htmlFor="subdomain">Subdomain</label>
+              <label htmlFor="subdomain">Subdominio</label>
               <div className="input-group">
                 <Input
                   className="form-control"
-                  placeholder="yourorganization"
+                  placeholder="organization"
                   type="text"
                   name="subdomain"
                   value={orgInfo.subdomain}
@@ -118,18 +118,18 @@ function ModalCreateOrganization(props) {
                 {errors.subdomain}
               </p>
               <small className="form-text text-muted ml-1">
-                A subdomain can have:
+                Un subdominio puede contener:
                 <ul>
-                  <li>Lowercase letters,</li>
-                  <li>Numbers, and</li>
-                  <li>Hyphens</li>
+                  <li>Letras minusculas,</li>
+                  <li>Numeros y</li>
+                  <li>Guiones</li>
                 </ul>
               </small>
             </div>
             <div className="form-group">
               <label>Logo</label>
               { logoImage !== null &&
-                <a href="#" onClick={resetImage} className="ml-3">reset</a>
+                <a href="#" onClick={resetImage} className="ml-3">resetear</a>
               }
               { logoImage === null && 
                 <ImageDropzone className="img-drop mb-3" onDrop={onDrop}/>
@@ -140,12 +140,12 @@ function ModalCreateOrganization(props) {
                 </nav>
               }
               <small className="form-text text-muted ml-1">
-                * Your logo will appear in your organization's navigation bar. If no image is uploaded, your organization's name will appear instead.
+                * El logo aparecera en la barra de navegacion de tu Organizacion. Si no subes una imagen, el nombre de la Organizacion aparecera en lugar del logo.
               </small>
             </div>
             <div className="d-flex justify-content-center mt-5">
-              <button className="btn btn-blank mr-2" type="button" onClick={onCancel}>Cancel</button>
-              <button className="btn btn-primary ml-2" type="submit">Create</button>
+              <button className="btn btn-blank mr-2" type="button" onClick={onCancel}>Cancelar</button>
+              <button className="btn btn-primary ml-2" type="submit">Crear</button>
             </div>
           </Form>
         </div>
